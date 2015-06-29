@@ -20,5 +20,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>TitilliumWeb-Regular.ttf</string>
+		<string>TitilliumWeb-Light.ttf</string>
+		<string>TitilliumWeb-Bold.ttf</string>
+		<string>Titillium-Semibold.otf</string>
+	</array>
 </dict>
 </plist>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="TitilliumWeb-SemiBold.ttf">
+            <string>TitilliumWeb-SemiBold</string>
+            <string>TitilliumWeb-SemiBold</string>
+            <string>TitilliumWeb-SemiBold</string>
+            <string>TitilliumWeb-SemiBold</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FooterClass">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footback" id="ZDr-vR-qB6">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" id="iLP-2A-Bh2">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Pdd-24-te2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <vibrancyEffect>
+                        <blurEffect style="light"/>
+                    </vibrancyEffect>
+                </visualEffectView>
+                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="XkO-pH-ow6">
+                    <rect key="frame" x="285" y="3" width="91" height="57"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="message2">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="message"/>
+                    <connections>
+                        <action selector="calender:" destination="iN0-l3-epB" eventType="touchUpInside" id="F1C-jM-QEZ"/>
+                        <action selector="message:" destination="iN0-l3-epB" eventType="touchUpInside" id="SJH-8p-cHB"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vss-Kx-PXd">
+                    <rect key="frame" x="305" y="37" width="66" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="TitilliumWeb-SemiBold" family="Titillium Web" pointSize="12"/>
+                    <color key="textColor" red="0.3614859533" green="0.3614859533" blue="0.3614859533" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="Poa-g6-1Gw">
+                    <rect key="frame" x="195" y="3" width="81" height="57"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="progress2">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="progress"/>
+                    <connections>
+                        <action selector="calender:" destination="iN0-l3-epB" eventType="touchUpInside" id="8WA-Le-bwv"/>
+                        <action selector="progress:" destination="iN0-l3-epB" eventType="touchUpInside" id="Bb7-qi-ACK"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xyj-BF-zAa">
+                    <rect key="frame" x="212" y="37" width="59" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="TitilliumWeb-SemiBold" family="Titillium Web" pointSize="12"/>
+                    <color key="textColor" red="0.3614859533" green="0.3614859533" blue="0.3614859533" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="edO-u7-2K0">
+                    <rect key="frame" x="86" y="3" width="101" height="57"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="gym2">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="gym"/>
+                    <connections>
+                        <action selector="bookAppo:" destination="iN0-l3-epB" eventType="touchUpInside" id="ZGb-z2-jZ2"/>
+                        <action selector="calender:" destination="iN0-l3-epB" eventType="touchUpInside" id="CQC-al-SJN"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Appointments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y21-ES-5bP">
+                    <rect key="frame" x="101" y="37" width="84" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="TitilliumWeb-SemiBold" family="Titillium Web" pointSize="12"/>
+                    <color key="textColor" red="0.3614859533" green="0.3614859533" blue="0.3614859533" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="fRW-Yl-zO3">
+                    <rect key="frame" x="0.0" y="2" width="78" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="calender2">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="calender"/>
+                    <connections>
+                        <action selector="calender:" destination="iN0-l3-epB" eventType="touchUpInside" id="Uzu-dC-yId"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="utp-Ew-QCa">
+                    <rect key="frame" x="16" y="37" width="52" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="TitilliumWeb-SemiBold" family="Titillium Web" pointSize="12"/>
+                    <color key="textColor" red="0.36148595328282818" green="0.36148595328282818" blue="0.36148595328282818" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="Appo1" destination="edO-u7-2K0" id="xtD-Sb-k3D"/>
+                <outlet property="Appo2" destination="Y21-ES-5bP" id="G0S-Lp-MzY"/>
+                <outlet property="Calender1" destination="fRW-Yl-zO3" id="wDJ-zg-wNZ"/>
+                <outlet property="Calender2" destination="utp-Ew-QCa" id="Bo7-If-3FE"/>
+                <outlet property="Messege1" destination="XkO-pH-ow6" id="Jl8-IH-DIV"/>
+                <outlet property="Messege2" destination="vss-Kx-PXd" id="XRH-A6-aI8"/>
+                <outlet property="Progress1" destination="Poa-g6-1Gw" id="HwC-2K-fLE"/>
+                <outlet property="Progress2" destination="xyj-BF-zAa" id="qSK-dk-tYf"/>
+            </connections>
+            <point key="canvasLocation" x="-25.5" y="-15"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="calender" width="50" height="40"/>
+        <image name="calender2" width="50" height="40"/>
+        <image name="footback" width="375" height="49"/>
+        <image name="gym" width="50" height="40"/>
+        <image name="gym2" width="50" height="40"/>
+        <image name="message" width="50" height="40"/>
+        <image name="message2" width="50" height="40"/>
+        <image name="progress" width="50" height="40"/>
+        <image name="progress2" width="50" height="40"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

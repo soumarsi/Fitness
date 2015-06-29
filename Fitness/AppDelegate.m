@@ -7,9 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ViewController.h"
 @interface AppDelegate ()
-
 @end
 
 @implementation AppDelegate
@@ -17,9 +16,94 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //--//
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+        
+    {
+        
+        NSLog(@"iOS 8 Notifications");
+        
+        
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+        
+        
+        [application registerForRemoteNotifications];
+        
+    }
+    
+    else
+        
+    {
+        
+        // iOS < 8 Notifications
+        
+        [application registerForRemoteNotificationTypes:
+         
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+        
+    }
+    
+
+    
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *Status=[standardUserDefaults stringForKey:@"Remember_Status"];
+    
+    if ([Status isEqualToString:@"Y"])
+    {
+
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *LoginController = [storyboard instantiateViewControllerWithIdentifier:@"calenderPage"];
+        [(UINavigationController*)self.window.rootViewController pushViewController:LoginController animated:NO];
+        
+    }
+    
+    NSLog(@"Remember....%@",Status);
+    
+    
+   
     return YES;
 }
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+    
+    
+    NSLog(@"in device");
+    NSString *deviceToken = [[[[devToken description]
+                               
+                               stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                              
+                              stringByReplacingOccurrencesOfString:@">" withString:@""]
+                             
+                             stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"deviceToken"];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    
+    [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"Device_Token"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    NSLog(@"devicetoken----------> %@", deviceToken);
+    
+    
+    
+    
+}
 
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+    if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground)
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *LoginController = [storyboard instantiateViewControllerWithIdentifier:@"msgpage"];
+        [(UINavigationController*)self.window.rootViewController pushViewController:LoginController animated:NO];
+        
+        NSLog(@"Notification......%@",userInfo);
+    }
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
