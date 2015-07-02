@@ -26,6 +26,12 @@
     
     NSDate *check_date_info;
     
+    NSDate *Remind_alert_date;
+    
+    NSTimer *timer;
+    
+    NSString *modified_format5,*remidtimer;
+    
 }
 @property (strong, nonatomic) IBOutlet UITableView *UserTable;
 @property (strong, nonatomic) IBOutlet UIView *FooterBase;
