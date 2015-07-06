@@ -17,11 +17,7 @@
 @implementation AllGraphViewController
 @synthesize Get_data;
 
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//    
-//}
+
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
