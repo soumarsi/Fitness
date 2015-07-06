@@ -49,7 +49,7 @@
         [self.view addSubview:chat_table];
 
     }
-
+//chat
     
     // Chat Text Field //
     containerView = [[UIImageView alloc] initWithFrame:CGRectMake(0,self.view.frame.size.height-44,[UIScreen mainScreen].bounds.size.width, 40)];
