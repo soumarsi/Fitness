@@ -61,6 +61,7 @@
     /// Getting user details
     
     
+    
     FooterClass *foot=[[FooterClass alloc]init];
     [foot TapCheck:1];
     foot.Delegate=self;
@@ -96,9 +97,9 @@
              
              User_Data=[JsonResult mutableCopy];
              
-         //    _Appointement_details.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001);
+             _Appointement_details.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001);
              
-     /*        [UIView animateWithDuration:0.3/1.5 animations:^{
+             [UIView animateWithDuration:0.3/1.5 animations:^{
                  _Appointement_details.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
                  
              } completion:^(BOOL finished) {
@@ -125,7 +126,7 @@
 
                      }];
                  }];
-             }];        */
+             }];
              
              
              
@@ -168,7 +169,6 @@
              NSString *day =[foo objectAtIndex: 0];
              
              NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-             [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
              [dateFormat setDateFormat:@"YYYY-MM-dd"];
              NSDate *Progdate = [dateFormat dateFromString:day];
              [prog_dateArray2 addObject:Progdate];
@@ -217,65 +217,18 @@
     standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSString *RemindTime = [standardUserDefaults stringForKey:@"Remind_Time"];
     
-    
-    NSDate *todayDate22 = [NSDate date];
-    
-    NSDateFormatter *dateFormat2 = [[NSDateFormatter alloc] init];
-    [dateFormat2 setDateFormat:@" MM/d, hh:mm aa"];
-    modified_format5 = [dateFormat2 stringFromDate:todayDate22];
-
-
-    NSLog(@"##########........%@",modified_format5);
-    
     if (RemindTime.length>0)
     {
         [_Remind_btn setTitle:RemindTime forState:UIControlStateNormal];
         
           [_remind_cancel setTitle:@"REMOVE" forState:UIControlStateNormal];
-        
     }
     else
     {
          [_remind_cancel setTitle:@"CANCEL" forState:UIControlStateNormal];
-        
-        [timer invalidate];
     }
     
-    
-   timer = [NSTimer scheduledTimerWithTimeInterval:0.9 target:self selector:@selector(toggleLabelAlpha) userInfo:nil repeats:YES];
-    
-     [_Remind_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
    
-}
-
-- (void)toggleLabelAlpha
-{
-    
-    standardUserDefaults = [NSUserDefaults standardUserDefaults];
-   remidtimer = [standardUserDefaults stringForKey:@"Remind_Time"];
-    
-    
-    NSDate *todayDate22 = [NSDate date];
-    
-    NSDateFormatter *dateFormat2 = [[NSDateFormatter alloc] init];
-    [dateFormat2 setDateFormat:@" MM/d, hh:mm aa"];
-    modified_format5 = [dateFormat2 stringFromDate:todayDate22];
-    
-    if([modified_format5 isEqualToString:remidtimer])
-    {
-    
- [_Remind_btn setTitleColor:[UIColor colorWithRed:(255.0f/255.0f) green:(196.0f/255.0f) blue:(0.0f/255.0f) alpha:1 ] forState:UIControlStateNormal];
-        
-        
-    }
-    else
-    {
-        [_Remind_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-    }
-
-    
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -729,9 +682,6 @@
                             
                              [_remind_cancel setTitle:@"CANCEL" forState:UIControlStateNormal];
                             
-                            [_Remind_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-                            
                             [_Blackoverlay setHidden:YES];
                             [_remindview setHidden:YES];
                         }
@@ -767,8 +717,6 @@
      {
          NSDate *myDate = _Remind_picker.date;
          
-         Remind_alert_date=_Remind_picker.date;
-         
          NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
          [dateFormat setDateFormat:@"cccc, MMM d, hh:mm aa"];
          
@@ -793,8 +741,6 @@
         
          [_remind_cancel setTitle:@"REMOVE" forState:UIControlStateNormal];
          
-         
-          [_Remind_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
          
          
      }];

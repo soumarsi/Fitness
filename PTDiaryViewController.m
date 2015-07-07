@@ -41,7 +41,6 @@
     selectedDate = [standardUserDefaults stringForKey:@"Selected_Date"];
 
     
-    
     JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
     [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/mark_calender?client_id=%@",App_Domain_Url,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
      {
@@ -51,7 +50,9 @@
          diary_date_array=[[JsonResult objectForKey:@"diary_date"]mutableCopy];
          
          
-         
+    
+
+    
          for (int i=0; i<diary_date_array.count; i++)
          {
              
@@ -60,11 +61,14 @@
              NSString *day =[foo objectAtIndex: 0];
              
              NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-             [dateFormat setDateFormat:@"YYYY-MM-dd"];
+             [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
              NSDate *Progdate = [dateFormat dateFromString:day];
              [diary_date_array2 addObject:Progdate];
              
          }
+         
+        //NSLog(@">>>>>>>>>>>>>>>>> %@",diary_date_array2);
          
          Calendar_status=0;
          
@@ -102,12 +106,7 @@
 
     
     
-    //--//
-    
-    [_Diary_Scroll setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width,700)];
-    
-    //--//
-
+  
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -157,6 +156,23 @@
              
              
                _edit_icon.hidden=NO;
+             
+             //--//
+             
+//             NSLog(@">>>>>>>>>>%lu",(unsigned long)_diary_text.text.length);
+             
+             if (_diary_text.text.length<100)
+             {
+                 
+             }
+             else
+             {
+                [_Diary_Scroll setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width,_diary_text.frame.size.height+_diary_text.contentSize.height+365+150)];
+             }
+             
+           
+             
+             //--//
          }
          else
          {
@@ -235,17 +251,7 @@
          }];
 
     }
-    else if (Diary_Status==0)
-    {
-        
-        if ([_date.text isEqualToString:@""])
-        {
-            UIAlertView *datealrt=[[UIAlertView alloc]initWithTitle:@"Please Select a Date" message:@"Open Calendar from above and select a date " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            
-            [datealrt show];
-            
-        }
-        else
+    else
         {
         
         NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -269,13 +275,6 @@
             
         }
 
-    }
-    else
-    {
-        
-    }
-    
-    
   
 }
 
@@ -319,6 +318,7 @@
         
         NSString *final_date=[NSString stringWithFormat:@"%@",[Date_cut objectAtIndex:0]];
         
+       
         
     
         if ([Current_date isEqualToString:final_date])
@@ -382,7 +382,7 @@
              
              _username.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"client_name"]];
              
-             _date.text=selectedDate;
+            // _date.text=selectedDate;
              
              _diary_text.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"dairy_text"]];
              _diary_text.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:16.0f];
@@ -391,6 +391,23 @@
              
              
              _edit_icon.hidden=NO;
+             
+             
+             if (_diary_text.text.length==0)
+             {
+                 _diary_text.text=@"If everything is going perfect, you should write that!";
+                 
+                 _diary_text.textAlignment=NSTextAlignmentCenter;
+                 
+                 _diary_text.textColor=[UIColor grayColor];
+                 
+                 _diary_text.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:20.0f];
+                 
+                 
+                 _edit_icon.hidden=NO;
+                 
+                 [_edit_icon setImage:[UIImage imageNamed:@"add_icon"] forState:UIControlStateNormal];
+             }
          }
          else
          {

@@ -9,7 +9,6 @@
 #import "AllGraphViewController.h"
 #import "OVGraphView.h"
 #import "OVGraphViewPoint.h"
-#import "PTGraphViewController.h"
 @interface AllGraphViewController ()
 
 @end
@@ -17,26 +16,21 @@
 @implementation AllGraphViewController
 @synthesize Get_data;
 
-//- (BOOL)prefersStatusBarHidden
-//{
-//    return YES;
-//    
-//}
--(UIStatusBarStyle)preferredStatusBarStyle
+- (BOOL)prefersStatusBarHidden
 {
-    return UIStatusBarStyleLightContent;
+    return YES;
+    
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
    
     NSLog(@"Graph Data....%@",Get_data);
-
     
     [UIView transitionWithView:self.view duration:0.8 options:UIViewAnimationOptionTransitionNone
                     animations:^{
                         
-                      //  self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
+                        self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
                         
                     }
                     completion:nil];
@@ -52,31 +46,8 @@
     //static NSString *CellIdentifier = @"Cellid";
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
-    UIScrollView *graph_scroll=[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.height,250)];
-    if ([UIScreen mainScreen].bounds.size.width>320)
-    {
-          graph_scroll.contentSize=CGSizeMake([UIScreen mainScreen].bounds.size.height+270,250);
-        
-         [graph_scroll setContentOffset:CGPointMake(280, 0)];
-    }
-    else
-    {
-          graph_scroll.contentSize=CGSizeMake([UIScreen mainScreen].bounds.size.height+240, 250);
-        
-         [graph_scroll setContentOffset:CGPointMake(250, 0)];
-    }
-    
-  
-    [cell addSubview:graph_scroll];
-    
-   
-    
-    graph_scroll.showsHorizontalScrollIndicator=NO;
-    
     UIView *graph_base=[[UIView alloc]initWithFrame:CGRectMake(0,0,[UIScreen mainScreen].bounds.size.height,250)];
-    [graph_scroll addSubview:graph_base];
-    
-    graph_base.userInteractionEnabled=YES;
+    [cell addSubview:graph_base];
     
     UILabel *graphTitle=[[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.origin.x+50,[UIScreen mainScreen].bounds.origin.y+5,150,28)];
     graphTitle.textColor=[UIColor darkGrayColor];
@@ -259,15 +230,10 @@
         
         [graph_base addSubview:graphview];
         
-     //   [graphview setPoints:@[[[OVGraphViewPoint alloc]initWithXLabel:point1 YValue:myNumber1],[[OVGraphViewPoint alloc]initWithXLabel:point2 YValue:myNumber2 ],[[OVGraphViewPoint alloc]initWithXLabel:point3 YValue:myNumber3 ],[[OVGraphViewPoint alloc]initWithXLabel:point4 YValue:myNumber4],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber6],[[OVGraphViewPoint alloc]initWithXLabel:point7 YValue:myNumber7 ],[[OVGraphViewPoint alloc]initWithXLabel:point8 YValue:myNumber8 ],[[OVGraphViewPoint alloc]initWithXLabel:point9 YValue:myNumber9],[[OVGraphViewPoint alloc]initWithXLabel:point10 YValue:myNumber10]]];
-        
-        
- [graphview setPoints:@[[[OVGraphViewPoint alloc]initWithXLabel:point10 YValue:myNumber10],[[OVGraphViewPoint alloc]initWithXLabel:point9 YValue:myNumber9 ],[[OVGraphViewPoint alloc]initWithXLabel:point8 YValue:myNumber8 ],[[OVGraphViewPoint alloc]initWithXLabel:point7 YValue:myNumber7],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber6 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber6 ],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber5],[[OVGraphViewPoint alloc]initWithXLabel:point4 YValue:myNumber4 ],[[OVGraphViewPoint alloc]initWithXLabel:point3 YValue:myNumber3 ],[[OVGraphViewPoint alloc]initWithXLabel:point2 YValue:myNumber2],[[OVGraphViewPoint alloc]initWithXLabel:point1 YValue:myNumber1]]];
-
+        [graphview setPoints:@[[[OVGraphViewPoint alloc]initWithXLabel:point1 YValue:myNumber1],[[OVGraphViewPoint alloc]initWithXLabel:point2 YValue:myNumber2 ],[[OVGraphViewPoint alloc]initWithXLabel:point3 YValue:myNumber3 ],[[OVGraphViewPoint alloc]initWithXLabel:point4 YValue:myNumber4],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber6],[[OVGraphViewPoint alloc]initWithXLabel:point7 YValue:myNumber7 ],[[OVGraphViewPoint alloc]initWithXLabel:point8 YValue:myNumber8 ],[[OVGraphViewPoint alloc]initWithXLabel:point9 YValue:myNumber9],[[OVGraphViewPoint alloc]initWithXLabel:point10 YValue:myNumber10]]];
         
     }
     
-    cell.userInteractionEnabled=YES;
     
     cell.selectionStyle=NO;
     
@@ -275,16 +241,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"^^^^^^^^^^^^^^^");
-//    NSMutableArray *Grap_data_array=[[NSMutableArray alloc]init];
-//    Grap_data_array=[[Get_data objectAtIndex:indexPath.row]objectForKey:@"points"];
-//    
-//    PTGraphViewController *obj=[self.storyboard instantiateViewControllerWithIdentifier:@"GraphPage"];
-//    obj.Get_data=Grap_data_array;
-//    obj.get_unit=[NSString stringWithFormat:@"%@",[[Get_data objectAtIndex:indexPath.row] objectForKey:@"measure_unit"]];
-//    obj.get_graph_id=[NSString stringWithFormat:@"%@",[[Get_data objectAtIndex:indexPath.row] objectForKey:@"id"]];
-//    [self.navigationController pushViewController:obj animated:NO];
-
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -107,71 +107,27 @@
     NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
     loggedin_userID = [standardUserDefaults stringForKey:@"user_id"];
     
-   
-    chat_Array2=[[NSMutableArray alloc]init];
-    
-    Start_Point=0;
-    
-    if ([UIScreen mainScreen].bounds.size.width>320)
-    {
-        spinnview=[[UIView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.origin.x+161, [UIScreen mainScreen].bounds.origin.y+200,50,50)];
-        spinnview.backgroundColor=[[UIColor blackColor]colorWithAlphaComponent:.7];
-        spinnview.layer.cornerRadius=8;
-        [self.view addSubview:spinnview];
-        
-        spinn=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        spinn.frame=CGRectMake(0,0,50,50);
-        [spinn startAnimating];
-        [spinnview addSubview:spinn];
-        
-        [spinnview setHidden:NO];
-
-    }
-    else
-    {
-        spinnview=[[UIView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.origin.x+135, [UIScreen mainScreen].bounds.origin.y+190,50,50)];
-        spinnview.backgroundColor=[[UIColor blackColor]colorWithAlphaComponent:.7];
-        spinnview.layer.cornerRadius=8;
-        [self.view addSubview:spinnview];
-        
-        spinn=[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        spinn.frame=CGRectMake(0,0,50,50);
-        [spinn startAnimating];
-        [spinnview addSubview:spinn];
-        
-        [spinnview setHidden:NO];
-
-    }
-    
-   
 
     JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-    [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@dashboard/get_user_respective_messages?user_id=%@&logged_in_user=%@&start=%ld",App_Domain_Url,trainerID,loggedin_userID,(long)Start_Point] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+    [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@dashboard/get_user_respective_messages?user_id=%@&logged_in_user=%@",App_Domain_Url,trainerID,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
      
      {
-         
          
          NSMutableArray *data_array=[[NSMutableArray alloc]init];
          data_array=[JsonResult mutableCopy];
          
         if (!data_array.count==0)
         {
-           
-             chat_Array=[[NSMutableArray alloc]init];
+            chat_Array=[[NSMutableArray alloc]init];
             chat_Array =[JsonResult objectForKey:@"all_message"];
             
-            chat_Array2 = [[chat_Array arrayByAddingObjectsFromArray:chat_Array2]mutableCopy];
-            
-          //  NSLog(@"Server_Data...%@",chat_Array);
+            NSLog(@"Server_Data...%@",chat_Array);
             
             [chat_table reloadData];
             
             //[chat_table reloadData];
             NSIndexPath* ip = [NSIndexPath indexPathForRow:chat_Array.count-1 inSection:0];
             [chat_table scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            
-            [spinnview setHidden:YES];
-
 
         }
          else
@@ -189,7 +145,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [chat_Array2 count];
+    return [chat_Array count];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -207,21 +163,20 @@
     UIImageView *chat_background=[[UIImageView alloc]initWithFrame:CGRectMake(48,5,220,80)];
     [cell addSubview:chat_background];
     
-    UILabel *chat_lable=[[UILabel alloc]initWithFrame:CGRectMake(6,4,195,76)];
+    UILabel *chat_lable=[[UILabel alloc]initWithFrame:CGRectMake(6,4,195,70)];
     chat_lable.backgroundColor=[UIColor clearColor];
     chat_lable.numberOfLines=4;
     chat_lable.textColor=[UIColor whiteColor];
     chat_lable.textAlignment=NSTextAlignmentLeft;
     chat_lable.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:16];
-    chat_lable.text=[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"message"]];
+    chat_lable.text=[NSString stringWithFormat:@"%@",[[chat_Array objectAtIndex:indexPath.row]objectForKey:@"message"]];
     [chat_background addSubview:chat_lable];
 
     
-    if ([[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"sent_by"]isEqualToString:loggedin_userID])
+    if ([[[chat_Array objectAtIndex:indexPath.row]objectForKey:@"sent_by"]isEqualToString:loggedin_userID])
     {
        
         chat_background.image=[UIImage imageNamed:@"send_img"];
-        chat_background.frame=CGRectMake(chat_background.frame.origin.x-25, chat_background.frame.origin.y, chat_background.frame.size.width+20, chat_background.frame.size.height+2);
 
     }
     else
@@ -232,74 +187,11 @@
         
         chat_background.image=[UIImage imageNamed:@"receive_img"];
         
-        chat_background.frame=CGRectMake(chat_background.frame.origin.x, chat_background.frame.origin.y, chat_background.frame.size.width+20, chat_background.frame.size.height+2);
-        
     }
 
-     [profileimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"sender_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
-
-    
-    if (chat_table.contentOffset.y<0)
-    {
-        [spinnview setHidden:NO];
-
-        
-        Start_Point=Start_Point+10;
-        
-        JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@dashboard/get_user_respective_messages?user_id=%@&logged_in_user=%@&start=%ld",App_Domain_Url,trainerID,loggedin_userID,(long)Start_Point] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
-         
-         {
-             
-             NSMutableArray *data_array=[[NSMutableArray alloc]init];
-             data_array=[JsonResult mutableCopy];
-             
-             if (!data_array.count==0)
-             {
-                 
-                  chat_Array=[[NSMutableArray alloc]init];
-                 chat_Array =[JsonResult objectForKey:@"all_message"];
-                 
-                 if (!chat_Array.count==0)
-                 {
-                     chat_Array2 = [[chat_Array arrayByAddingObjectsFromArray:chat_Array2]mutableCopy];
-                     NSLog(@"Server_Data...%@",chat_Array);
-                     
-                     [chat_table reloadData];
-                     
-                     [spinnview setHidden:YES];
+     [profileimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[chat_Array objectAtIndex:indexPath.row]objectForKey:@"sender_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
 
 
-                 }
-                 else
-                 {
-                     // No More Data To Load
-                     
-                     [spinnview removeFromSuperview];
-
-                 }
-                
-                 
-                 
-             }
-             else
-             {
-                 
-                 [spinnview setHidden:YES];
-
-
-
-             }
-             
-             
-             
-         }];
-
-    }
-
-    
-    
-    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -461,8 +353,6 @@
          NSLog(@"Adding....");
          
          [chat_table removeFromSuperview];
-         
-         Start_Point=0;
          
          [self viewDidLoad];
          

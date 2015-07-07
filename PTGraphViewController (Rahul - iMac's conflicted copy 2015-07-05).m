@@ -237,28 +237,15 @@
         
         [_GraphBase addSubview:graphview];
         
-//        [graphview setPoints:@[[[OVGraphViewPoint alloc]initWithXLabel:point1 YValue:myNumber1],[[OVGraphViewPoint alloc]initWithXLabel:point2 YValue:myNumber2 ],[[OVGraphViewPoint alloc]initWithXLabel:point3 YValue:myNumber3 ],[[OVGraphViewPoint alloc]initWithXLabel:point4 YValue:myNumber4],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber6],[[OVGraphViewPoint alloc]initWithXLabel:point7 YValue:myNumber7 ],[[OVGraphViewPoint alloc]initWithXLabel:point8 YValue:myNumber8 ],[[OVGraphViewPoint alloc]initWithXLabel:point9 YValue:myNumber9],[[OVGraphViewPoint alloc]initWithXLabel:point10 YValue:myNumber10]]];
-        
-        
-        
-        [graphview setPoints:@[[[OVGraphViewPoint alloc]initWithXLabel:point10 YValue:myNumber10],[[OVGraphViewPoint alloc]initWithXLabel:point9 YValue:myNumber9 ],[[OVGraphViewPoint alloc]initWithXLabel:point8 YValue:myNumber8 ],[[OVGraphViewPoint alloc]initWithXLabel:point7 YValue:myNumber7],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber6 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber6 ],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber5],[[OVGraphViewPoint alloc]initWithXLabel:point4 YValue:myNumber4 ],[[OVGraphViewPoint alloc]initWithXLabel:point3 YValue:myNumber3 ],[[OVGraphViewPoint alloc]initWithXLabel:point2 YValue:myNumber2],[[OVGraphViewPoint alloc]initWithXLabel:point1 YValue:myNumber1]]];
-        
-
+        [graphview setPoints:@[[[OVGraphViewPoint alloc]initWithXLabel:point1 YValue:myNumber1],[[OVGraphViewPoint alloc]initWithXLabel:point2 YValue:myNumber2 ],[[OVGraphViewPoint alloc]initWithXLabel:point3 YValue:myNumber3 ],[[OVGraphViewPoint alloc]initWithXLabel:point4 YValue:myNumber4],[[OVGraphViewPoint alloc]initWithXLabel:point5 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber5 ],[[OVGraphViewPoint alloc]initWithXLabel:point6 YValue:myNumber6],[[OVGraphViewPoint alloc]initWithXLabel:point7 YValue:myNumber7 ],[[OVGraphViewPoint alloc]initWithXLabel:point8 YValue:myNumber8 ],[[OVGraphViewPoint alloc]initWithXLabel:point9 YValue:myNumber9],[[OVGraphViewPoint alloc]initWithXLabel:point10 YValue:myNumber10]]];
         
     }
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    date_pick_date = [formatter stringFromDate:_Datepick.date];
-    
-    
-    [_set_value setTitle:@"Done" forState:UIControlStateNormal];
     
     [_Datepick addTarget:self action:@selector(dateUpdated:) forControlEvents:UIControlEventValueChanged];
     
    
 }
-- (void)dateUpdated:(UIDatePicker *)datePicker {
+- (void) dateUpdated:(UIDatePicker *)datePicker {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     date_pick_date = [formatter stringFromDate:datePicker.date];

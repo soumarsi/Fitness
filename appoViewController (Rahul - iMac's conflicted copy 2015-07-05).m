@@ -13,7 +13,6 @@
 #import "JsonViewController.h"
 #import "UIImageView+WebCache.h"
 #import "PTappodetailsViewController.h"
-#import "PTappodetailsViewController.h"
 @interface appoViewController ()<footerdelegate,UITableViewDelegate,UITableViewDataSource,CKCalendarDelegate>
 @property(nonatomic, weak) CKCalendarView *calendar;
 @property(nonatomic, strong) UILabel *dateLabel;
@@ -88,6 +87,7 @@
          }
          else
          {
+             appo_array=[[NSMutableArray alloc]init];
              appo_array=[[NSMutableArray alloc]init];
              appo_array=[[JsonResult objectForKey:@"appointment_date"]mutableCopy];
              
@@ -170,7 +170,7 @@
               
               
               JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-              [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+              [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
                
                {
                    
@@ -285,26 +285,16 @@
     {
        
         [cell.cell_button setImage:[UIImage imageNamed:@"booked_img"] forState:UIControlStateNormal];
-        //cell.cell_button.userInteractionEnabled=NO;
+        cell.cell_button.userInteractionEnabled=NO;
         
-        [cell.cell_button addTarget:self action:@selector(booking_details_page:) forControlEvents:UIControlEventTouchUpInside];
+       
 
-    }
-     else if ([check_booking isEqualToString:@"Ex"])
-    {
-        [cell.cell_button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        
-      //  cell.cell_button.userInteractionEnabled=NO;
-        
-     [cell.cell_button addTarget:self action:@selector(Empty_booking) forControlEvents:UIControlEventTouchUpInside];
-        
-   
     }
     else
     {
-          cell.cell_button.userInteractionEnabled=YES;
+        [cell.cell_button setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         
-         [cell.cell_button addTarget:self action:@selector(Empty_booking) forControlEvents:UIControlEventTouchUpInside];
+        cell.cell_button.userInteractionEnabled=NO;
     }
     
     cell.cell_button.tag=indexPath.row;
@@ -318,30 +308,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
-}
-
--(void)Empty_booking
-{
-     NSLog(@"No Booking Details");
-}
-
-
--(void)booking_details_page:(UIButton *)sender
-{
-    booking_id=[NSString stringWithFormat:@"%@",[[timing_array objectAtIndex:sender.tag]objectForKey:@"booking_id"]];
-    
-    if (booking_id.length>0)
-    {
-        PTappodetailsViewController *obj=[self.storyboard instantiateViewControllerWithIdentifier:@"AppoDetails"];
-        obj.booking_id=booking_id;
-        [self.navigationController pushViewController:obj animated:NO];
-    }
-    else
-    {
-        
-    }
-    
-  
 }
 
 -(void)booking_fuction:(UIButton *)sender
@@ -363,7 +329,7 @@
          
          
          JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT_id_tracker]objectForKey:@"pt_id"],booking_date_value,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT_id_tracker]objectForKey:@"pt_id"],booking_date_value] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
           
           {
               
@@ -592,7 +558,7 @@
         booking_pt_id=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"]];
               
               JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-              [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+              [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
                
                {
                    
@@ -745,7 +711,7 @@
     booking_pt_id=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"]];
          
          JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
           
           {
               
@@ -849,7 +815,7 @@
           booking_pt_id=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"]];
          
          JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:0]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
           
           {
               
@@ -906,7 +872,7 @@
         _trainner_address.text=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:PT]objectForKey:@"working_address"]];
         
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
              
@@ -949,7 +915,7 @@
         _trainner_address.text=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:PT]objectForKey:@"working_address"]];
         
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
              
@@ -994,7 +960,7 @@
         _trainner_address.text=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:PT]objectForKey:@"working_address"]];
         
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
              
@@ -1050,7 +1016,7 @@
         
         
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
              
@@ -1096,7 +1062,7 @@
         
         
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
              
@@ -1147,7 +1113,7 @@
         
        
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@&client_id=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/trainer_booking_details?trainer_id=%@&date_val=%@",App_Domain_Url,[[trainner_array objectAtIndex:PT]objectForKey:@"pt_id"],convertedDateString3] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
              
