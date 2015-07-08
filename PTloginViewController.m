@@ -130,9 +130,9 @@
         NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
         NSString *DToken = [standardUserDefaults stringForKey:@"deviceToken"];
 
-        UIAlertView *token_alrt=[[UIAlertView alloc]initWithTitle:@"Device Token" message:DToken delegate:self cancelButtonTitle:@"" otherButtonTitles:nil, nil];
-        
-        [token_alrt show];
+//        UIAlertView *token_alrt=[[UIAlertView alloc]initWithTitle:@"Device Token" message:DToken delegate:self cancelButtonTitle:@"" otherButtonTitles:nil, nil];
+//        
+//        [token_alrt show];
         
         
     JsonViewController *jsonOBJ=[[JsonViewController alloc]init];

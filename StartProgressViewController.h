@@ -31,6 +31,12 @@
     NSMutableArray *weight_array;
     
     NSInteger Windex;
+    
+    BOOL keyboard_status;
+    
+    NSString *keyboard_text;
+    
+    UILabel *reflectlbl;
 }
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (strong, nonatomic) IBOutlet UIView *footerbase;
@@ -71,6 +77,19 @@
 @property (weak, nonatomic) IBOutlet UIView *border_view;
 
 - (IBAction)training_edit:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UIView *custom_keyboard;
+
+
+- (IBAction)KCOMA:(id)sender;
+- (IBAction)KCLR:(id)sender;
+
+- (IBAction)keyboard_button_press:(UIButton *)sender;
+
+
+
+
+
 
 
 @end

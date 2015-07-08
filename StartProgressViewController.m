@@ -203,7 +203,10 @@
     }
     
     
+    Windex=-1;
+    keyboard_status=0;
     
+    [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,_custom_keyboard.frame.origin.y+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -275,14 +278,76 @@
                                                              forIndexPath:indexPath];
     
     
-    cell.reps_count.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"reps"]];
+  //  NSLog(@"--====-=-===--=-= %ld",Windex);
     
-    cell.weight.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"kg"]];
+    if (indexPath.row== Windex)
+    {
+        cell.backgroundColor = [UIColor colorWithRed:(30.0f/255.0f) green:(168.0f/255.0f) blue:(240.0f/255.0f) alpha:1];
+        
+        [cell.Edit_button setTitle:@"Change" forState:UIControlStateNormal];
+        cell.Edit_button.titleLabel.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:18];
+        [cell.Edit_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    cell.Edit_button.tag=indexPath.row;
-    
-    
-    cell.selectionStyle=NO;
+        cell.reps_count.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"reps"]];
+        
+        cell.weight.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"kg"]];
+        
+        cell.Edit_button.tag=indexPath.row;
+        
+        cell.item1.textColor=[UIColor whiteColor];
+        cell.item2.textColor=[UIColor whiteColor];
+        cell.item3.textColor=[UIColor whiteColor];
+        cell.item4.textColor=[UIColor whiteColor];
+        cell.item5.textColor=[UIColor whiteColor];
+        
+        cell.item4.backgroundColor=[UIColor colorWithRed:(32.0f/255.0f) green:(147.0f/255.0f) blue:(209.0f/255.0f) alpha:1];
+        cell.item5.backgroundColor=[UIColor colorWithRed:(32.0f/255.0f) green:(147.0f/255.0f) blue:(209.0f/255.0f) alpha:1];
+        
+        [cell.line_view setHidden:YES];
+        
+        cell.selectionStyle=NO;
+        
+        cell.item4.text=@"";
+        
+        reflectlbl=[[UILabel alloc]initWithFrame:CGRectMake(cell.item4.frame.origin.x,cell.item4.frame.origin.y,cell.item4.frame.size.width, cell.item4.frame.size.height)];
+        
+        reflectlbl.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:18];
+        reflectlbl.textColor=[UIColor whiteColor];
+        reflectlbl.textAlignment=NSTextAlignmentCenter;
+        
+        [cell addSubview:reflectlbl];
+        
+    }
+    else
+    {
+        [cell.line_view setHidden:NO];
+        
+       reflectlbl.text=@"";
+        
+        cell.backgroundColor = [UIColor clearColor];
+        
+        cell.item4.backgroundColor=[UIColor clearColor];
+        cell.item5.backgroundColor=[UIColor clearColor];
+        
+        [cell.Edit_button setTitle:@"" forState:UIControlStateNormal];
+        
+        cell.item1.textColor=[UIColor darkGrayColor];
+        cell.item2.textColor=[UIColor colorWithRed:(30.0f/255.0f) green:(168.0f/255.0f) blue:(240.0f/255.0f) alpha:1];
+        cell.item3.textColor=[UIColor darkGrayColor];
+        cell.item4.textColor=[UIColor colorWithRed:(30.0f/255.0f) green:(168.0f/255.0f) blue:(240.0f/255.0f) alpha:1];
+        cell.item5.textColor=[UIColor darkGrayColor];
+
+        
+        cell.reps_count.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"reps"]];
+        
+        cell.weight.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"kg"]];
+        
+        cell.Edit_button.tag=indexPath.row;
+        
+        
+        cell.selectionStyle=NO;
+    }
+
     
     return cell;
 }
@@ -373,7 +438,6 @@
      
      {
          
-         
      }];
 
     
@@ -384,24 +448,30 @@
 - (IBAction)Next_Button:(id)sender
 {
     
+    Windex = -1;
+    
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+        
+        [_custom_keyboard setHidden:NO];
+        
+        [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+        
+    }
+                     completion:^(BOOL finished)
+     {
+         keyboard_status=0;
+         
+     }];
+
+    
     NSLog(@"...........%d",index_number);
     
     index_number=index_number+1;
     i=i+1;
     
     [_left_arrow setHidden:NO];
-    //[_Training_Name2 setHidden:YES];
-    //[_Training_Name2 setHidden:YES];      //DEBARUN
     
-    
-    
-    
-    //    if(flag==1)
-    //    {
-    //        [_Training_Name setHidden:NO];
-    //        [_Training_Name2 setHidden:YES];
-    //        [_Training_Name3 setHidden:NO];
-    //    }
+     _left_arrow_button.userInteractionEnabled=YES;
     
     if (Get_Training_Details.count==index_number)
     {
@@ -457,6 +527,8 @@
         
         
         
+      
+        
         if(index_number-i>=0)
         {
             _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number-i]objectForKey:@"exercise_title"]];
@@ -474,6 +546,21 @@
         {
             _Training_Name2.text=Nil;
         }
+        
+        if ([_Training_Name2.text isEqualToString:@""])
+        {
+            
+            
+            [_right_arrow setHidden:YES];
+            
+            _Right_arrow_button.userInteractionEnabled=NO;
+            
+            _left_arrow_button.userInteractionEnabled=YES;
+            
+            index_number=index_number-1;
+            
+        }
+
         
     }
     i=i-1;
@@ -500,6 +587,21 @@
 
 - (IBAction)Previous_Button:(id)sender
 {
+    Windex = -1;
+    
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+        
+        [_custom_keyboard setHidden:NO];
+        
+        [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+        
+    }
+                     completion:^(BOOL finished)
+     {
+         keyboard_status=0;
+         
+     }];
+
     
     NSLog(@"...........%d",index_number);
     
@@ -507,6 +609,9 @@
     j=j-1;
     
     [_left_arrow setHidden:NO];
+    
+    _Right_arrow_button.userInteractionEnabled=YES;
+    [_right_arrow setHidden:NO];
     
     if (index_number<0)
     {
@@ -582,20 +687,101 @@
 - (IBAction)training_edit:(UIButton *)sender
 {
     
-    NSLog(@"########>>>>>>>>>> %d",index_number);
+   // NSLog(@"########>>>>>>>>>> %d",index_number);
+   // Windex = -1;
+  
+    if (keyboard_status==0)
+    {
+        NSLog(@"---- %ld", (long)sender.tag);
+        
+        Windex=sender.tag;
+        
+        [_Gymtable reloadData];
+        
+        
+        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+            
+            [_custom_keyboard setHidden:NO];
+            
+            [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height-_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+            
+        }
+                         completion:^(BOOL finished)
+         {
+             keyboard_status=1;
+             
+             [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,180)];
+             
+         }];
 
+    }
+    else
+    {
+         [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+            
+            [_custom_keyboard setHidden:NO];
+            
+            [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+            
+        }
+                         completion:^(BOOL finished)
+         {
+             keyboard_status=0;
+             
+             
+         }];
+
+        
+        if (reflectlbl.text.length>0)
+        {
+              //
+            
+            NSLog(@"-=-=-=- %ld",sender.tag);
+            [weight_array removeObjectAtIndex:sender.tag];
+              [weight_array insertObject:reflectlbl.text atIndex:Windex];
+            NSString *Weight = [weight_array componentsJoinedByString:@","];
+         
+            
+            NSLog(@"weight---- %@", Weight);
+            
+            NSLog(@"-=--=-=-=-=-= : %@", weight_array);
+            
+            JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
+            
+            [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/update_sets_value?user_program_id=%@&client_id=%@&exercise_id=%@&updated_sets_reps=%@&updated_sets_kg=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"],Rips,Weight] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+             
+             {
+                 
+                 Rips=nil;
+                 
+                 // [self viewDidLoad];
+                 
+                 
+                 
+             }];
+
+        }
+        
+     
+
+    }
     
-    Windex=sender.tag;
+   
     
-    UIAlertView *Edit_Alert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:@"Please Enter Weight Value"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Set", nil];
-    Edit_Alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [Edit_Alert show];
     
-    [weight_array removeObjectAtIndex:sender.tag];
+    
+    
+//    UIAlertView *Edit_Alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                    message:@"Please Enter Weight Value"
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"Cancel"
+//                                          otherButtonTitles:@"Set", nil];
+//    Edit_Alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+//    [Edit_Alert show];
+//
+    
+    
+
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -611,41 +797,66 @@
         else
         {
         
-        [weight_array insertObject:Text atIndex:Windex];
-        
-     NSString *Weight = [weight_array componentsJoinedByString:@","];
-       
-       
-        JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-        
-        [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/update_sets_value?user_program_id=%@&client_id=%@&exercise_id=%@&updated_sets_reps=%@&updated_sets_kg=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"],Rips,Weight] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
-         
-         {
-             
-            Rips=nil;
-             
-            [self viewDidLoad];
-
-             
-//             [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
-//              
-//              {
-//                  
-//           
-//                  
-//                  [_Gymtable reloadData];
-//                  
-//              }];
-//             
-           
-
-             
-          
-             
-         }];
             
         }
 
     }
+}
+
+- (IBAction)KCOMA:(id)sender {
+}
+
+- (IBAction)KCLR:(id)sender {
+}
+
+- (IBAction)keyboard_button_press:(UIButton *)sender
+{
+    
+    
+    UILabel *PhoneNumbertextView = (UILabel *)reflectlbl;
+    
+    int UibuttonTag = [sender tag];
+    
+  //  [PhoneNumbertextView setTextColor:[UIColor darkGrayColor]];
+    
+    
+    
+    NSString *PhoneTextFieldText = [PhoneNumbertextView text];
+    
+    NSString *NewString          = nil;
+    
+    
+    NSLog(@"tag-- %lu", (unsigned long)[PhoneTextFieldText length]);
+    
+    if (UibuttonTag==196)
+    {
+        
+        NewString = @"";
+        
+    }
+     else
+     {
+        
+         
+       if ([PhoneTextFieldText length]<10) {
+           
+                 NSLog(@"--=-=-=-=entry%lu",(unsigned long)PhoneTextFieldText.length);
+           
+            NewString          = [PhoneTextFieldText stringByAppendingString:sender.titleLabel.text];
+            
+        } else {
+            
+            
+            
+            NewString           = [PhoneNumbertextView text];
+            
+        }
+    
+    }
+    
+    [PhoneNumbertextView setText:NewString];
+    
+    NSLog(@"phone--- %@",NewString);
+    
 }
 @end

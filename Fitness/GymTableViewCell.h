@@ -13,5 +13,12 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *weight;
 @property (weak, nonatomic) IBOutlet UIButton *Edit_button;
+@property (weak, nonatomic) IBOutlet UILabel *item1;
+@property (weak, nonatomic) IBOutlet UILabel *item2;
+@property (weak, nonatomic) IBOutlet UILabel *item3;
+@property (weak, nonatomic) IBOutlet UILabel *item4;
+@property (weak, nonatomic) IBOutlet UILabel *item5;
+@property (weak, nonatomic) IBOutlet UIImageView *item6;
+@property (weak, nonatomic) IBOutlet UIView *line_view;
 
 @end

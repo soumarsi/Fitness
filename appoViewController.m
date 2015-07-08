@@ -441,7 +441,15 @@
 #pragma mark - CKCalendarDelegate
 
 - (void)calendar:(CKCalendarView *)calendar configureDateItem:(CKDateItem *)dateItem forDate:(NSDate *)date {
-   //  TODO: play with the coloring if we want to...
+ 
+    NSDate *todayDate2 = [NSDate date];
+    NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+    [dateFormatter2 setDateFormat:@"yyyy-MM-dd"];
+    NSString *marking_Date = [dateFormatter2 stringFromDate:todayDate2];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *Current_date = [formatter stringFromDate:date];
     
     if ([self dateIsDisabled:date])
     {
@@ -450,9 +458,7 @@
     }
     
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *Current_date = [formatter stringFromDate:date];
+   
     
     int date_check;
     
@@ -480,6 +486,12 @@
                 
                 dateItem.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"appo_marker2"]];
             }
+            else if ([marking_Date isEqualToString:Current_date])
+            {
+                dateItem.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:.4];
+                dateItem.textColor = [UIColor whiteColor];
+            }
+
             else
             {
                  dateItem.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"appo_marker"]];
