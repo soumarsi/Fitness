@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-@interface AppDelegate ()
+#import <PushKit/PushKit.h>
+
+#import <Pusher/Pusher.h>
+@interface AppDelegate ()<PTPusherDelegate>
 @end
 
 @implementation AppDelegate
@@ -17,49 +20,45 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //--//
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
-        
-    {
-        
-        NSLog(@"iOS 8 Notifications");
-        
-        
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        
-        
-        
-        [application registerForRemoteNotifications];
-        
-    }
+    PUSHER_API_KEY =@"676b2632a600d73a2182";
+    PUSHER_CHANNEL = @"test_channel";
+    PUSHER_EVENT = @"my_event";
     
-    else
-        
-    {
-        
-        // iOS < 8 Notifications
-        
-        [application registerForRemoteNotificationTypes:
-         
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
-        
-    }
+    self.pusherClient = [PTPusher pusherWithKey:PUSHER_API_KEY delegate:self encrypted:YES];
     
-
+    // connect to pusher
     
-    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *Status=[standardUserDefaults stringForKey:@"Remember_Status"];
+    [self.pusherClient connect];
     
-    if ([Status isEqualToString:@"Y"])
-    {
-
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ViewController *LoginController = [storyboard instantiateViewControllerWithIdentifier:@"calenderPage"];
-        [(UINavigationController*)self.window.rootViewController pushViewController:LoginController animated:NO];
+    // Declare the pusher channel to subscribe
+    
+    PTPusherChannel *channel   = [self.pusherClient subscribeToChannelNamed:PUSHER_CHANNEL];
+    
+    // bind the pusher channel
+    
+    
+    
+    [channel bindToEventNamed:PUSHER_EVENT handleWithBlock:^(PTPusherEvent *channelEvent) {
         
-    }
-    
-    NSLog(@"Remember....%@",Status);
+        // Pusher binded, now chaeck the incomming data
+        
+        NSUserDefaults *UserData = [[NSUserDefaults alloc]init];
+        NSString *login_user_id=[NSString stringWithFormat:@"%@",[UserData objectForKey:@"Login_User_id"]];
+        
+        
+        NSLog(@"Getting Channel Data......%@ Respective app user id -%@",[channelEvent.data objectForKey:@"rec_id"],login_user_id);
+        
+        
+        if([[NSString stringWithFormat:@"%@",[channelEvent.data objectForKey:@"sent_by"]] isEqualToString:login_user_id]){
+            
+            NSLog(@"Getting Receiver id ----%@ user id -- %@",[channelEvent.data objectForKey:@"sent_by"],login_user_id);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DataEdited" object:self];
+        }
+        
+        
+        
+    }];
     
     
    

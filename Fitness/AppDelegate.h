@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-
+#import "PTPusherDelegate.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    NSString *PUSHER_API_KEY;
+    NSString *PUSHER_CHANNEL;
+    NSString *PUSHER_EVENT;
+
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -19,6 +25,8 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+
+@property (nonatomic, strong) PTPusher *pusherClient;
 
 @end
 
