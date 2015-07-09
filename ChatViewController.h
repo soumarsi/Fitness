@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HPGrowingTextView.h"
+#import <AVFoundation/AVFoundation.h>
 @interface ChatViewController : UIViewController<HPGrowingTextViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
      UIImageView *containerView;
@@ -29,6 +30,8 @@
     
     UIView *spinnview;
     UIActivityIndicatorView *spinn;
+    
+    AVAudioPlayer *player;
     
 }
 - (IBAction)BackTOmessage:(id)sender;

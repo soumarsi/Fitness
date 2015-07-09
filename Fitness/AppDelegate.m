@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import <PushKit/PushKit.h>
-
 #import <Pusher/Pusher.h>
 @interface AppDelegate ()<PTPusherDelegate>
 @end
@@ -42,67 +41,82 @@
         
         // Pusher binded, now chaeck the incomming data
         
-        NSUserDefaults *UserData = [[NSUserDefaults alloc]init];
-        NSString *login_user_id=[NSString stringWithFormat:@"%@",[UserData objectForKey:@"Login_User_id"]];
+        NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *loggedin_userID = [standardUserDefaults stringForKey:@"user_id"];
         
         
-        NSLog(@"Getting Channel Data......%@ Respective app user id -%@",[channelEvent.data objectForKey:@"rec_id"],login_user_id);
+        NSLog(@"Getting Channel Data......%@ Respective app user id %@",[channelEvent.data objectForKey:@"sent_to"],loggedin_userID);
         
+        NSDictionary *userinfo=[channelEvent.data copy];
         
-        if([[NSString stringWithFormat:@"%@",[channelEvent.data objectForKey:@"sent_by"]] isEqualToString:login_user_id]){
-            
-            NSLog(@"Getting Receiver id ----%@ user id -- %@",[channelEvent.data objectForKey:@"sent_by"],login_user_id);
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"DataEdited" object:self];
+    if([[NSString stringWithFormat:@"%@",[channelEvent.data objectForKey:@"sent_to"]] isEqualToString:loggedin_userID])
+       {
+        
+          [[NSNotificationCenter defaultCenter] postNotificationName:@"DataEdited" object:userinfo];
         }
         
         
         
     }];
     
+    NSUserDefaults * standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *Status=[standardUserDefaults stringForKey:@"Remember_Status"];
+    
+    if ([Status isEqualToString:@"Y"])
+    {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ViewController *LoginController = [storyboard instantiateViewControllerWithIdentifier:@"calenderPage"];
+        [(UINavigationController*)self.window.rootViewController pushViewController:LoginController animated:NO];
+        
+    }
+    
+    NSLog(@"Remember....%@",Status);
+
+    
     
    
     return YES;
 }
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    
-    
-    NSLog(@"in device");
-    NSString *deviceToken = [[[[devToken description]
-                               
-                               stringByReplacingOccurrencesOfString:@"<"withString:@""]
-                              
-                              stringByReplacingOccurrencesOfString:@">" withString:@""]
-                             
-                             stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"deviceToken"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    
-    
-    [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"Device_Token"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    
-    NSLog(@"devicetoken----------> %@", deviceToken);
-    
-    
-    
-    
-}
-
-- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
-{
-    if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground)
-    {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ViewController *LoginController = [storyboard instantiateViewControllerWithIdentifier:@"msgpage"];
-        [(UINavigationController*)self.window.rootViewController pushViewController:LoginController animated:NO];
-        
-        NSLog(@"Notification......%@",userInfo);
-    }
-}
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+//    
+//    
+//    NSLog(@"in device");
+//    NSString *deviceToken = [[[[devToken description]
+//                               
+//                               stringByReplacingOccurrencesOfString:@"<"withString:@""]
+//                              
+//                              stringByReplacingOccurrencesOfString:@">" withString:@""]
+//                             
+//                             stringByReplacingOccurrencesOfString: @" " withString: @""];
+//    
+//    [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"deviceToken"];
+//    
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//    
+//    
+//    [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"Device_Token"];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
+//    
+//    NSLog(@"devicetoken----------> %@", deviceToken);
+//    
+//    
+//    
+//    
+//}
+//
+//- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+//{
+//    if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground)
+//    {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        ViewController *LoginController = [storyboard instantiateViewControllerWithIdentifier:@"msgpage"];
+//        [(UINavigationController*)self.window.rootViewController pushViewController:LoginController animated:NO];
+//        
+//        NSLog(@"Notification......%@",userInfo);
+//    }
+//}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -12,6 +12,8 @@
 @interface MessegeViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
     NSMutableArray *Message_Details_array;
+    
+    FooterClass *foot;
 }
 @property (strong, nonatomic) IBOutlet UITableView *messegeTable;
 @property (strong, nonatomic) IBOutlet UIView *footerbase;

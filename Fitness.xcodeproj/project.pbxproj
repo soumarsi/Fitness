@@ -11,13 +11,13 @@
 		A5DE33A31B319C1200ECE18D /* AllGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DE33A21B319C1200ECE18D /* AllGraphViewController.m */; };
 		A5F210531B29BDD900B219BA /* AppoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F210511B29BDD900B219BA /* AppoListViewController.m */; };
 		A5F210561B29BDE900B219BA /* AppoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F210551B29BDE900B219BA /* AppoListTableViewCell.m */; };
+		A5F7BCEE1B4E853C003AF07E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5F7BCED1B4E853C003AF07E /* AVFoundation.framework */; };
+		A5F7BCF21B4E869C003AF07E /* sounds-874-gets-in-the-way.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A5F7BCF11B4E869C003AF07E /* sounds-874-gets-in-the-way.mp3 */; };
 		F91724FA1AC5368300693D4C /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = F91724F91AC5368300693D4C /* CKCalendarView.m */; };
 		F917250D1AC537E900693D4C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91724F61AC5365800693D4C /* UIKit.framework */; };
 		F917250E1AC537FF00693D4C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91724F01AC5363700693D4C /* CoreGraphics.framework */; };
 		F917250F1AC5380A00693D4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91724F41AC5365200693D4C /* Foundation.framework */; };
 		F91725101AC5383400693D4C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91724F21AC5364200693D4C /* QuartzCore.framework */; };
-		F91725131AC55C8900693D4C /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = F91725111AC55C8900693D4C /* left_arrow.png */; };
-		F91725141AC55C8900693D4C /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = F91725121AC55C8900693D4C /* right_arrow.png */; };
 		F91725231AC57E9A00693D4C /* MessegeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F91725221AC57E9A00693D4C /* MessegeTableViewCell.m */; };
 		F91725261AC588EB00693D4C /* MessegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F91725251AC588EB00693D4C /* MessegeViewController.m */; };
 		F91CF4B71AD7A878005BFDB6 /* PTDiaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F91CF4B61AD7A878005BFDB6 /* PTDiaryViewController.m */; };
@@ -28,15 +28,10 @@
 		F927D7FF1AC2AD1B0030B522 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F927D7FD1AC2AD1B0030B522 /* Main.storyboard */; };
 		F927D8011AC2AD1B0030B522 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F927D8001AC2AD1B0030B522 /* Images.xcassets */; };
 		F927D8041AC2AD1B0030B522 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F927D8021AC2AD1B0030B522 /* LaunchScreen.xib */; };
-		F927D8101AC2AD1C0030B522 /* FitnessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F927D80F1AC2AD1C0030B522 /* FitnessTests.m */; };
 		F92844811AD545B0001F41DA /* PTloginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F92844801AD545B0001F41DA /* PTloginViewController.m */; };
 		F92844841AD55BF1001F41DA /* PTappodetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F92844831AD55BF1001F41DA /* PTappodetailsViewController.m */; };
 		F9458EF91AC412DA008F9371 /* FooterClass.m in Sources */ = {isa = PBXBuildFile; fileRef = F9458EF81AC412DA008F9371 /* FooterClass.m */; };
-		F959832A1AC947D400F67486 /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95983291AC947D400F67486 /* TitilliumWeb-SemiBold.ttf */; };
 		F95983301AC9621400F67486 /* GymTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F959832F1AC9621400F67486 /* GymTableViewCell.m */; };
-		F95CCFB71AC91068005F352D /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95CCFB51AC91068005F352D /* TitilliumWeb-Light.ttf */; };
-		F95CCFB81AC91068005F352D /* TitilliumWeb-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95CCFB61AC91068005F352D /* TitilliumWeb-Regular.ttf */; };
-		F95CCFBF1AC9119B005F352D /* TitilliumWeb-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95CCFBD1AC9119B005F352D /* TitilliumWeb-Bold.ttf */; };
 		F98A519B1ACBABDD0051B6CD /* Titillium-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F959832D1AC94C5600F67486 /* Titillium-Semibold.otf */; };
 		F98A519C1ACBAC030051B6CD /* TitilliumWeb-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95CCFBD1AC9119B005F352D /* TitilliumWeb-Bold.ttf */; };
 		F98A519D1ACBAC0D0051B6CD /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95983291AC947D400F67486 /* TitilliumWeb-SemiBold.ttf */; };
@@ -81,16 +76,6 @@
 		F9FDE5CF1B1062D8006D9D36 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = F9FDE5BF1B1062D8006D9D36 /* UIView+WebCacheOperation.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		F927D80A1AC2AD1C0030B522 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F927D7E51AC2AD1B0030B522 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F927D7EC1AC2AD1B0030B522;
-			remoteInfo = Fitness;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		2EC4EBE5ABF0A68110C383D0 /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		310336EDC04DD3785F9445DE /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +86,8 @@
 		A5F210521B29BDD900B219BA /* AppoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppoListViewController.h; sourceTree = "<group>"; };
 		A5F210541B29BDE900B219BA /* AppoListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppoListTableViewCell.h; sourceTree = "<group>"; };
 		A5F210551B29BDE900B219BA /* AppoListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppoListTableViewCell.m; sourceTree = "<group>"; };
+		A5F7BCED1B4E853C003AF07E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A5F7BCF11B4E869C003AF07E /* sounds-874-gets-in-the-way.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "sounds-874-gets-in-the-way.mp3"; sourceTree = "<group>"; };
 		F91724F01AC5363700693D4C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F91724F21AC5364200693D4C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F91724F41AC5365200693D4C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -126,7 +113,6 @@
 		F927D7FE1AC2AD1B0030B522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F927D8001AC2AD1B0030B522 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F927D8031AC2AD1B0030B522 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		F927D8091AC2AD1C0030B522 /* FitnessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitnessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F927D80E1AC2AD1C0030B522 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F927D80F1AC2AD1C0030B522 /* FitnessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FitnessTests.m; sourceTree = "<group>"; };
 		F928447F1AD545B0001F41DA /* PTloginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTloginViewController.h; sourceTree = "<group>"; };
@@ -225,18 +211,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5F7BCEE1B4E853C003AF07E /* AVFoundation.framework in Frameworks */,
 				F91725101AC5383400693D4C /* QuartzCore.framework in Frameworks */,
 				F917250F1AC5380A00693D4C /* Foundation.framework in Frameworks */,
 				F917250E1AC537FF00693D4C /* CoreGraphics.framework in Frameworks */,
 				F917250D1AC537E900693D4C /* UIKit.framework in Frameworks */,
 				5B0110A4DE7513E7914808BD /* libPods-Fitness.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F927D8061AC2AD1C0030B522 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,6 +226,7 @@
 		285315458D5CA01000BD4DCB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5F7BCED1B4E853C003AF07E /* AVFoundation.framework */,
 				4AE61BF7970AEF7E9CC9C663 /* libPods-Fitness.a */,
 			);
 			name = Frameworks;
@@ -348,7 +329,6 @@
 			isa = PBXGroup;
 			children = (
 				F927D7ED1AC2AD1B0030B522 /* Fitness.app */,
-				F927D8091AC2AD1C0030B522 /* FitnessTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -356,6 +336,7 @@
 		F927D7EF1AC2AD1B0030B522 /* Fitness */ = {
 			isa = PBXGroup;
 			children = (
+				A5F7BCF11B4E869C003AF07E /* sounds-874-gets-in-the-way.mp3 */,
 				F927D7F41AC2AD1B0030B522 /* AppDelegate.h */,
 				F927D7F51AC2AD1B0030B522 /* AppDelegate.m */,
 				F927D7FA1AC2AD1B0030B522 /* ViewController.h */,
@@ -550,24 +531,6 @@
 			productReference = F927D7ED1AC2AD1B0030B522 /* Fitness.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F927D8081AC2AD1C0030B522 /* FitnessTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F927D8161AC2AD1C0030B522 /* Build configuration list for PBXNativeTarget "FitnessTests" */;
-			buildPhases = (
-				F927D8051AC2AD1C0030B522 /* Sources */,
-				F927D8061AC2AD1C0030B522 /* Frameworks */,
-				F927D8071AC2AD1C0030B522 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F927D80B1AC2AD1C0030B522 /* PBXTargetDependency */,
-			);
-			name = FitnessTests;
-			productName = FitnessTests;
-			productReference = F927D8091AC2AD1C0030B522 /* FitnessTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -580,11 +543,6 @@
 					F927D7EC1AC2AD1B0030B522 = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = HVFEBCENV9;
-					};
-					F927D8081AC2AD1C0030B522 = {
-						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = HVFEBCENV9;
-						TestTargetID = F927D7EC1AC2AD1B0030B522;
 					};
 				};
 			};
@@ -602,7 +560,6 @@
 			projectRoot = "";
 			targets = (
 				F927D7EC1AC2AD1B0030B522 /* Fitness */,
-				F927D8081AC2AD1C0030B522 /* FitnessTests */,
 			);
 		};
 /* End PBXProject section */
@@ -612,6 +569,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5F7BCF21B4E869C003AF07E /* sounds-874-gets-in-the-way.mp3 in Resources */,
 				F98A519F1ACBAC170051B6CD /* TitilliumWeb-Light.ttf in Resources */,
 				F98A519E1ACBAC120051B6CD /* TitilliumWeb-Regular.ttf in Resources */,
 				F98A519D1ACBAC0D0051B6CD /* TitilliumWeb-SemiBold.ttf in Resources */,
@@ -621,19 +579,6 @@
 				F927D8041AC2AD1B0030B522 /* LaunchScreen.xib in Resources */,
 				F9C4FBE91AC2DBF400B35E3B /* Footer.xib in Resources */,
 				F927D8011AC2AD1B0030B522 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F927D8071AC2AD1C0030B522 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F95CCFBF1AC9119B005F352D /* TitilliumWeb-Bold.ttf in Resources */,
-				F95CCFB71AC91068005F352D /* TitilliumWeb-Light.ttf in Resources */,
-				F91725131AC55C8900693D4C /* left_arrow.png in Resources */,
-				F95CCFB81AC91068005F352D /* TitilliumWeb-Regular.ttf in Resources */,
-				F959832A1AC947D400F67486 /* TitilliumWeb-SemiBold.ttf in Resources */,
-				F91725141AC55C8900693D4C /* right_arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,23 +676,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F927D8051AC2AD1C0030B522 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F927D8101AC2AD1C0030B522 /* FitnessTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F927D80B1AC2AD1C0030B522 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F927D7EC1AC2AD1B0030B522 /* Fitness */;
-			targetProxy = F927D80A1AC2AD1C0030B522 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F927D7FD1AC2AD1B0030B522 /* Main.storyboard */ = {
@@ -807,7 +736,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "6b44f816-69c5-489e-927b-c5d71289ea03";
+				PROVISIONING_PROFILE = "51fe8a98-ebc9-4bae-ba1e-f4b9da028597";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -843,7 +772,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "6b44f816-69c5-489e-927b-c5d71289ea03";
+				PROVISIONING_PROFILE = "51fe8a98-ebc9-4bae-ba1e-f4b9da028597";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -859,7 +788,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6b44f816-69c5-489e-927b-c5d71289ea03";
+				PROVISIONING_PROFILE = "51fe8a98-ebc9-4bae-ba1e-f4b9da028597";
 			};
 			name = Debug;
 		};
@@ -873,49 +802,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6b44f816-69c5-489e-927b-c5d71289ea03";
-			};
-			name = Release;
-		};
-		F927D8171AC2AD1C0030B522 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(PROJECT_DIR)/FitnessTests",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = FitnessTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitness.app/Fitness";
-			};
-			name = Debug;
-		};
-		F927D8181AC2AD1C0030B522 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(PROJECT_DIR)/FitnessTests",
-				);
-				INFOPLIST_FILE = FitnessTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitness.app/Fitness";
+				PROVISIONING_PROFILE = "51fe8a98-ebc9-4bae-ba1e-f4b9da028597";
 			};
 			name = Release;
 		};
@@ -936,15 +823,6 @@
 			buildConfigurations = (
 				F927D8141AC2AD1C0030B522 /* Debug */,
 				F927D8151AC2AD1C0030B522 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F927D8161AC2AD1C0030B522 /* Build configuration list for PBXNativeTarget "FitnessTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F927D8171AC2AD1C0030B522 /* Debug */,
-				F927D8181AC2AD1C0030B522 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

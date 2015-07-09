@@ -112,8 +112,24 @@
          
          {
              
-             
-            
+             if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
+             {
+                 [_finish_btn setImage:nil forState:UIControlStateNormal];
+                 
+                 [_finish_btn setBackgroundColor:[UIColor grayColor]];
+                 [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
+                 [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                 _finish_btn.layer.cornerRadius=3;
+                 
+                 [_finish_btn setUserInteractionEnabled:NO];
+
+             }
+             else
+             {
+                  [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                 
+                 
+             }
              
              rips_array=[[NSMutableArray alloc]init];
              rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
@@ -437,7 +453,143 @@
     [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/update_finish_status?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
      
      {
+         Windex = -1;
          
+         [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+             
+             [_custom_keyboard setHidden:NO];
+             
+             [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+             
+         }
+                          completion:^(BOOL finished)
+          {
+              keyboard_status=0;
+              
+          }];
+         
+         
+         NSLog(@"...........%d",index_number);
+         
+         index_number=index_number+1;
+         i=i+1;
+         
+         [_left_arrow setHidden:NO];
+         
+         _left_arrow_button.userInteractionEnabled=YES;
+         
+         if (Get_Training_Details.count==index_number)
+         {
+             
+             
+             [_right_arrow setHidden:YES];
+             
+             _Right_arrow_button.userInteractionEnabled=NO;
+             
+             _left_arrow_button.userInteractionEnabled=YES;
+             
+             index_number=index_number-1;
+             
+         }
+         else
+         {
+             
+             
+             JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
+             
+             
+             [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+              
+              {
+                  
+                  if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
+                  {
+                      [_finish_btn setImage:nil forState:UIControlStateNormal];
+                      
+                      [_finish_btn setBackgroundColor:[UIColor grayColor]];
+                      [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
+                      [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                      _finish_btn.layer.cornerRadius=3;
+                      
+                      [_finish_btn setUserInteractionEnabled:NO];
+                      
+                  }
+                  else
+                  {
+                      [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                      
+                  }
+                  
+                  
+                  
+                  NSLog(@"###### Test Mode ###### ... %@",JsonResult);
+                  
+                  rips_array=[[NSMutableArray alloc]init];
+                  rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
+                  
+                  training_data=[[NSMutableArray alloc]init];
+                  training_data=[JsonResult mutableCopy];
+                  
+                  _training_description.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_description"]];
+                  _training_description.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
+                  
+                  _Training_instruction.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"instruction"]];
+                  _Training_instruction.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
+                  
+                  
+                  [_training_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
+                  
+                  websiteUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_video"]]];
+                  NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
+                  [myWebView loadRequest:urlRequest];
+                  
+                  _training_image.clipsToBounds=YES;
+                  _training_image.contentMode=UIViewContentModeScaleAspectFit;
+                  
+                  [_Gymtable reloadData];
+                  
+              }];
+             
+             
+             
+             
+             
+             if(index_number-i>=0)
+             {
+                 _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number-i]objectForKey:@"exercise_title"]];
+                 
+             }
+             
+             
+             _Training_NameHead.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
+             
+             if(i<Get_Training_Details.count-index_number)
+             {
+                 _Training_Name2.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number+i]objectForKey:@"exercise_title"]];
+             }
+             if(index_number==Get_Training_Details.count-1)
+             {
+                 _Training_Name2.text=Nil;
+             }
+             
+             if ([_Training_Name2.text isEqualToString:@""])
+             {
+                 
+                 
+                 [_right_arrow setHidden:YES];
+                 
+                 _Right_arrow_button.userInteractionEnabled=NO;
+                 
+                 _left_arrow_button.userInteractionEnabled=YES;
+                 
+                 index_number=index_number-1;
+                 
+             }
+             
+             
+         }
+         i=i-1;
+
      }];
 
     
@@ -453,6 +605,8 @@
     [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
         
         [_custom_keyboard setHidden:NO];
+        
+            [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
         
         [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
         
@@ -496,6 +650,26 @@
         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
          
          {
+             
+             if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
+             {
+                 [_finish_btn setImage:nil forState:UIControlStateNormal];
+                 
+                 [_finish_btn setBackgroundColor:[UIColor grayColor]];
+                 [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
+                 [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                 _finish_btn.layer.cornerRadius=3;
+                 
+                 [_finish_btn setUserInteractionEnabled:NO];
+                 
+             }
+             else
+             {
+                 [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                 
+             }
+
+
              
              NSLog(@"###### Test Mode ###### ... %@",JsonResult);
              
@@ -593,6 +767,8 @@
         
         [_custom_keyboard setHidden:NO];
         
+        [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
+        
         [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
         
     }
@@ -636,6 +812,26 @@
          
          {
              
+             if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
+             {
+                 [_finish_btn setImage:nil forState:UIControlStateNormal];
+                 
+                 [_finish_btn setBackgroundColor:[UIColor grayColor]];
+                 [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
+                 [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                 _finish_btn.layer.cornerRadius=3;
+                 
+                  [_finish_btn setUserInteractionEnabled:NO];
+                 
+             }
+             else
+             {
+                 [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                 
+                 
+             }
+
+
              
              NSLog(@"###### Test Mode ###### ... %@",JsonResult);
              
@@ -703,6 +899,8 @@
             
             [_custom_keyboard setHidden:NO];
             
+            [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,89)];
+            
             [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height-_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
             
         }
@@ -710,7 +908,8 @@
          {
              keyboard_status=1;
              
-             [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,180)];
+            
+             
              
          }];
 
@@ -720,6 +919,8 @@
          [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
             
             [_custom_keyboard setHidden:NO];
+             
+              [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
             
             [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
             
@@ -754,9 +955,8 @@
                  
                  Rips=nil;
                  
-                 // [self viewDidLoad];
-                 
-                 
+            
+        
                  
              }];
 

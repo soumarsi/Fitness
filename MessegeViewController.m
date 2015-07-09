@@ -26,8 +26,9 @@
     _messegeTable.delegate=self;
     _messegeTable.dataSource=self;
     
-    FooterClass *foot=[[FooterClass alloc]init];
+    foot=[[FooterClass alloc]init];
     [foot TapCheck:4];
+    [foot.red_dot setHidden:YES];
     foot.Delegate=self;
     foot.frame=CGRectMake(0,0,_footerbase.frame.size.width,_footerbase.frame.size.height);
     [_footerbase addSubview:foot];
@@ -35,10 +36,22 @@
     
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReceiveNotification) name:@"DataEdited" object:nil];
+    
+    
+}
+-(void)ReceiveNotification
+{
+    [self viewDidAppear:YES];
+    
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
     
+    [foot.red_dot setHidden:YES];
     
     // Getting Message Data //
     
@@ -147,6 +160,7 @@
          cell.time.text=[NSString stringWithFormat:@"%@",[Date_cut objectAtIndex:0]];
     }
 
+    
     
     return cell;
 }

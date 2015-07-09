@@ -23,8 +23,16 @@
     if (self)
     {
         self=[[[NSBundle mainBundle] loadNibNamed:@"Footer" owner:self options:nil]objectAtIndex:0];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReceiveNotification:) name:@"DataEdited" object:nil];
+    
+
     }
     return self;
+}
+-(void)ReceiveNotification:(NSNotification *) notification
+{
+    [_red_dot setHidden:NO];
 }
 
 - (IBAction)calender:(UIButton *)sender

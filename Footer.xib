@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="TitilliumWeb-SemiBold.ttf">
@@ -108,6 +108,10 @@
                     <color key="textColor" red="0.36148595328282818" green="0.36148595328282818" blue="0.36148595328282818" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pusher_dot" id="qJ5-6a-KZ9">
+                    <rect key="frame" x="320" y="-5" width="49" height="49"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -121,6 +125,7 @@
                 <outlet property="Messege2" destination="vss-Kx-PXd" id="XRH-A6-aI8"/>
                 <outlet property="Progress1" destination="Poa-g6-1Gw" id="HwC-2K-fLE"/>
                 <outlet property="Progress2" destination="xyj-BF-zAa" id="qSK-dk-tYf"/>
+                <outlet property="red_dot" destination="qJ5-6a-KZ9" id="w6t-GT-1yD"/>
             </connections>
             <point key="canvasLocation" x="-25.5" y="-15"/>
         </view>
@@ -135,6 +140,7 @@
         <image name="message2" width="50" height="40"/>
         <image name="progress" width="50" height="40"/>
         <image name="progress2" width="50" height="40"/>
+        <image name="pusher_dot" width="15" height="15"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

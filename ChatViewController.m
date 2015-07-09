@@ -162,7 +162,7 @@
             
             chat_Array2 = [[chat_Array arrayByAddingObjectsFromArray:chat_Array2]mutableCopy];
             
-          //  NSLog(@"Server_Data...%@",chat_Array);
+            NSLog(@"Server_Data##01...%@",chat_Array);
             
             [chat_table reloadData];
             
@@ -186,26 +186,38 @@
 
     
 }
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated
+{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReceiveNotification) name:@"DataEdited" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReceiveNotification:) name:@"DataEdited" object:nil];
+    
+   
     
     
 }
 - (void)playMusic
 {
-//    NSLog(@"playingg.....");
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"sounds-874-gets-in-the-way" ofType:@"mp3"];
-//    NSError *error = nil;
-//    NSURL *url = [NSURL fileURLWithPath:path];
-//    player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-//    [player play];
+    NSLog(@"playingg.....");
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"sounds-874-gets-in-the-way" ofType:@"mp3"];
+    NSError *error = nil;
+    NSURL *url = [NSURL fileURLWithPath:path];
+    player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    [player play];
 }
--(void)ReceiveNotification
+-(void)ReceiveNotification:(NSNotification *) notification
 {
-    //[self playMusic];
-    [self viewDidLoad];
+    [self playMusic];
+      NSDictionary *message = [notification object];
     
+    if ([trainerID isEqualToString:[NSString stringWithFormat:@"%@",[message objectForKey:@"sent_by"]]])
+    {
+        
+        [chat_table removeFromSuperview];
+        [self viewDidLoad];
+        
+
+    }
+
 }
 
 
@@ -218,113 +230,286 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *simpleTableIdentifier = @"Cell";
-   UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     
-    UIImageView *profileimage=[[UIImageView alloc]initWithFrame:CGRectMake(270,40,40, 40)];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    
+    
+    
+    
+    
+    
+    
+    UIFont *font1 = [UIFont fontWithName:@"TitilliumWeb-Regular" size:17];
+    
+    NSDictionary *arialDict = [NSDictionary dictionaryWithObject:font1 forKey:NSFontAttributeName];
+    
+    NSMutableAttributedString *aAttrString1 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"message"]] attributes: arialDict];
+    
+    
+    
+    CGRect rect;
+    
+    
+    
+    rect =[aAttrString1 boundingRectWithSize:CGSizeMake(290, 800) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+    
+    
+    
+    
+    
+    UIImageView *profileimage=[[UIImageView alloc]init];//WithFrame:CGRectMake(270,40,40, 40)];
+    
     profileimage.layer.cornerRadius=20;
+    
     profileimage.clipsToBounds=YES;
+    
     profileimage.contentMode=UIViewContentModeScaleAspectFill;
+    
     cell.selectionStyle=NO;
+    
     [cell addSubview:profileimage];
     
-  
-    UIImageView *chat_background=[[UIImageView alloc]initWithFrame:CGRectMake(48,5,220,80)];
+    
+    
+    
+    
+    UIView *chat_background=[[UIView alloc]init];//WithFrame:CGRectMake(48,5,220,rect.size.height+40)];
+    
     [cell addSubview:chat_background];
     
-    UILabel *chat_lable=[[UILabel alloc]initWithFrame:CGRectMake(6,4,195,76)];
+    
+    
+    
+    
+    
+    
+    UILabel *chat_lable=[[UILabel alloc]init];//WithFrame:CGRectMake(6,4,195,rect.size.height+35)];
+    
     chat_lable.backgroundColor=[UIColor clearColor];
-    chat_lable.numberOfLines=4;
+    
+    chat_lable.numberOfLines=0;
+    
+    chat_lable.clipsToBounds = YES;
+    
     chat_lable.textColor=[UIColor whiteColor];
+    
     chat_lable.textAlignment=NSTextAlignmentLeft;
+    
     chat_lable.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:16];
-    chat_lable.text=[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"message"]];
+    
+    chat_lable.attributedText  = aAttrString1;
+    
     [chat_background addSubview:chat_lable];
-
+    
+    
+    
+    UIImageView *cornerimage = [[UIImageView alloc]init];
+    
+    [cornerimage setImage:[UIImage imageNamed:@"cornerimage"]];
+    
+    [cell addSubview:cornerimage];
+    
+    
     
     if ([[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"sent_by"]isEqualToString:loggedin_userID])
+        
     {
-       
-        chat_background.image=[UIImage imageNamed:@"send_img"];
-        chat_background.frame=CGRectMake(chat_background.frame.origin.x-25, chat_background.frame.origin.y, chat_background.frame.size.width+20, chat_background.frame.size.height+2);
-
+        
+        
+        
+        chat_background.backgroundColor = [UIColor colorWithRed:(36.0f / 255.0f) green:(168.0f / 255.0f) blue:(240.0f / 255.0f) alpha:1.0f];
+        
+        chat_background.frame=CGRectMake(self.view.frame.origin.x+7, 3, self.view.frame.size.width-85 , rect.size.height+45);
+        
+        cornerimage.frame = CGRectMake(chat_background.frame.origin.x+chat_background.frame.size.width, 3, 25 , rect.size.height+45);
+        
+        profileimage.frame = CGRectMake(self.view.frame.size.width-55, rect.size.height+50-45, 40, 40);
+        
+        chat_lable.frame = CGRectMake(chat_background.frame.origin.x+4, chat_background.frame.origin.y+4, chat_background.frame.size.width-8, chat_background.frame.size.height-8);
+        
+        
+        
+        UIBezierPath *maskPath;
+        
+        maskPath = [UIBezierPath bezierPathWithRoundedRect:chat_background.bounds
+                    
+                                         byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerBottomLeft)
+                    
+                                               cornerRadii:CGSizeMake(10.0, 10.0)];
+        
+        
+        
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        
+        maskLayer.frame = self.view.bounds;
+        
+        maskLayer.path = maskPath.CGPath;
+        
+        chat_background.layer.mask = maskLayer;
+        
+        
+        
     }
+    
     else
+        
     {
-         chat_lable.textColor=[UIColor blackColor];
         
-        [profileimage setFrame:CGRectMake(5,40,40, 40)];
         
-        chat_background.image=[UIImage imageNamed:@"receive_img"];
         
-        chat_background.frame=CGRectMake(chat_background.frame.origin.x, chat_background.frame.origin.y, chat_background.frame.size.width+20, chat_background.frame.size.height+2);
+        
+        
+        [profileimage setFrame:CGRectMake(5,rect.size.height+50-45,40, 40)];
+        
+        chat_lable.textColor=[UIColor blackColor];
+        
+        chat_background.layer.cornerRadius = 10.0f;
+        
+        chat_background.backgroundColor = [UIColor colorWithRed:(233.0f / 255.0f) green:(242.0f / 255.0f) blue:(247.0f / 255.0f) alpha:1.0f];
+        
+        chat_background.frame=CGRectMake(profileimage.frame.origin.x+profileimage.frame.size.width+7, 3, self.view.frame.size.width-65 , rect.size.height+45);
+        
+        chat_lable.frame = CGRectMake(7, chat_background.frame.origin.y+4, chat_background.frame.size.width-8, chat_background.frame.size.height-8);
+        
+        
+        
+        
         
     }
-
-     [profileimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"sender_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
-
+    
+    
+    
+    [profileimage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"sender_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
+    
+    
+    
+    
     
     if (chat_table.contentOffset.y<0)
+        
     {
+        
         [spinnview setHidden:NO];
-
+        
+        
+        
+        
         
         Start_Point=Start_Point+10;
         
+        
+        
         JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
+        
         [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@dashboard/get_user_respective_messages?user_id=%@&logged_in_user=%@&start=%ld",App_Domain_Url,trainerID,loggedin_userID,(long)Start_Point] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+         
+         
          
          {
              
+             
+             
              NSMutableArray *data_array=[[NSMutableArray alloc]init];
+             
              data_array=[JsonResult mutableCopy];
              
+             
+             
              if (!data_array.count==0)
+                 
              {
                  
-                  chat_Array=[[NSMutableArray alloc]init];
+                 
+                 
+                 chat_Array=[[NSMutableArray alloc]init];
+                 
                  chat_Array =[JsonResult objectForKey:@"all_message"];
                  
+                 
+                 
                  if (!chat_Array.count==0)
+                     
                  {
+                     
                      chat_Array2 = [[chat_Array arrayByAddingObjectsFromArray:chat_Array2]mutableCopy];
+                     
                      NSLog(@"Server_Data...%@",chat_Array);
+                     
+                     
                      
                      [chat_table reloadData];
                      
+                     
+                     
                      [spinnview setHidden:YES];
-
-
+                     
+                     
+                     
+                     
+                     
                  }
+                 
                  else
+                     
                  {
+                     
                      // No More Data To Load
                      
+                     
+                     
                      [spinnview removeFromSuperview];
-
+                     
+                     
+                     
                  }
-                
+                 
+                 
+                 
+                 
+                 
                  
                  
              }
+             
              else
+                 
              {
                  
+                 
+                 
                  [spinnview setHidden:YES];
-
-
-
+                 
+                 
+                 
+                 
+                 
+                 
+                 
              }
+             
+             
+             
+             
              
              
              
          }];
-
+        
+        
+        
     }
-
+    
+    
+    
+    
+    
+    
     
     
     
     return cell;
+
+
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -332,7 +517,25 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    UIFont *font1 = [UIFont fontWithName:@"TitilliumWeb-Regular" size:17];
+    
+    NSDictionary *arialDict = [NSDictionary dictionaryWithObject:font1 forKey:NSFontAttributeName];
+    
+    NSMutableAttributedString *aAttrString1 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",[[chat_Array2 objectAtIndex:indexPath.row]objectForKey:@"message"]] attributes: arialDict];
+    
+    
+    
+    CGRect rect;
+    
+    
+    
+    rect =[aAttrString1 boundingRectWithSize:CGSizeMake(290, 800) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
+    
+    
+    
+    
+    
+    return rect.size.height + 55;
 }
 - (void)growingTextViewDidBeginEditing:(HPGrowingTextView *)growingTextView
 {
@@ -485,6 +688,7 @@
          NSLog(@"Adding....");
          
          [chat_table removeFromSuperview];
+         [textView removeFromSuperview];
          
          Start_Point=0;
          

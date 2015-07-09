@@ -19,6 +19,7 @@
 - (IBAction)message:(id)sender;
 
 -(void)TapCheck:(int)Buttontag;
+@property (weak, nonatomic) IBOutlet UIImageView *red_dot;
 
 
 @property (strong, nonatomic) IBOutlet UIButton *Calender1;
