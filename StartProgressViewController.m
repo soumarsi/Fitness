@@ -627,6 +627,7 @@
     
      _left_arrow_button.userInteractionEnabled=YES;
     
+    
     if (Get_Training_Details.count==index_number)
     {
         
@@ -697,6 +698,7 @@
              
              [_Gymtable reloadData];
              
+             
          }];
         
         
@@ -719,6 +721,9 @@
         if(index_number==Get_Training_Details.count-1)
         {
             _Training_Name2.text=Nil;
+            [_right_arrow setHidden:YES];
+            _Right_arrow_button.userInteractionEnabled=NO;
+
         }
         
         if ([_Training_Name2.text isEqualToString:@""])
@@ -737,6 +742,8 @@
 
         
     }
+    
+    
     i=i-1;
 }
 
@@ -873,6 +880,8 @@
         if(index_number==0)
         {
             _Training_Name.text=Nil;
+            [_left_arrow setHidden:YES];
+             _left_arrow_button.userInteractionEnabled=NO;
         }
         
     }
