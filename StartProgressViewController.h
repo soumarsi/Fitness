@@ -37,6 +37,8 @@
     NSString *keyboard_text;
     
     UILabel *reflectlbl;
+    
+    NSString *NewString;;
 }
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 @property (strong, nonatomic) IBOutlet UIView *footerbase;
