@@ -128,6 +128,8 @@
              {
                   [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
                  
+                 [_finish_btn setUserInteractionEnabled:YES];
+                 
                  
              }
              
@@ -518,6 +520,8 @@
                   {
                       [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
                       
+                       [_finish_btn setUserInteractionEnabled:YES];
+                      
                   }
                   
                   
@@ -570,6 +574,8 @@
              if(index_number==Get_Training_Details.count-1)
              {
                  _Training_Name2.text=Nil;
+                 [_right_arrow setHidden:YES];
+                 _Right_arrow_button.userInteractionEnabled=NO;
              }
              
              if ([_Training_Name2.text isEqualToString:@""])
@@ -667,6 +673,8 @@
              else
              {
                  [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                 
+                  [_finish_btn setUserInteractionEnabled:YES];
                  
              }
 
@@ -834,6 +842,8 @@
              else
              {
                  [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                 
+                  [_finish_btn setUserInteractionEnabled:YES];
                  
                  
              }
@@ -1037,6 +1047,8 @@
                                    {
                                        [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
                                        
+                                        [_finish_btn setUserInteractionEnabled:YES];
+                                       
                                        
                                    }
                                    
@@ -1158,6 +1170,8 @@
                                    else
                                    {
                                        [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                                       
+                                        [_finish_btn setUserInteractionEnabled:YES];
                                        
                                    }
                                    
@@ -1312,6 +1326,8 @@
                                {
                                    [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
                                    
+                                    [_finish_btn setUserInteractionEnabled:YES];
+                                   
                                }
                                
                                
@@ -1460,6 +1476,8 @@
                                {
                                    [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
                                    
+                                    [_finish_btn setUserInteractionEnabled:YES];
+                                   
                                    
                                }
                                
@@ -1589,6 +1607,27 @@
     {
         
         NewString = @"";
+        
+        Windex=-1;
+        
+        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+            
+            [_custom_keyboard setHidden:NO];
+            
+            [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
+            
+            [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+            
+            [_Gymtable reloadData];
+
+            
+        }
+                         completion:^(BOOL finished)
+         {
+             
+             
+             }];
+
         
     }
      else
