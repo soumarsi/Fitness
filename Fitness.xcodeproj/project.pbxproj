@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B0110A4DE7513E7914808BD /* libPods-Fitness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE61BF7970AEF7E9CC9C663 /* libPods-Fitness.a */; };
+		A5DBB5C91B566A14000B0D58 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5DBB5C81B566A14000B0D58 /* EventKit.framework */; };
 		A5DE33A31B319C1200ECE18D /* AllGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DE33A21B319C1200ECE18D /* AllGraphViewController.m */; };
 		A5F210531B29BDD900B219BA /* AppoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F210511B29BDD900B219BA /* AppoListViewController.m */; };
 		A5F210561B29BDE900B219BA /* AppoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F210551B29BDE900B219BA /* AppoListTableViewCell.m */; };
@@ -80,6 +81,7 @@
 		2EC4EBE5ABF0A68110C383D0 /* Pods-Fitness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.release.xcconfig"; sourceTree = "<group>"; };
 		310336EDC04DD3785F9445DE /* Pods-Fitness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitness/Pods-Fitness.debug.xcconfig"; sourceTree = "<group>"; };
 		4AE61BF7970AEF7E9CC9C663 /* libPods-Fitness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Fitness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5DBB5C81B566A14000B0D58 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		A5DE33A11B319C1200ECE18D /* AllGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllGraphViewController.h; sourceTree = "<group>"; };
 		A5DE33A21B319C1200ECE18D /* AllGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllGraphViewController.m; sourceTree = "<group>"; };
 		A5F210511B29BDD900B219BA /* AppoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppoListViewController.m; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5F7BCEE1B4E853C003AF07E /* AVFoundation.framework in Frameworks */,
+				A5DBB5C91B566A14000B0D58 /* EventKit.framework in Frameworks */,
 				F91725101AC5383400693D4C /* QuartzCore.framework in Frameworks */,
 				F917250F1AC5380A00693D4C /* Foundation.framework in Frameworks */,
 				F917250E1AC537FF00693D4C /* CoreGraphics.framework in Frameworks */,
@@ -226,6 +229,7 @@
 		285315458D5CA01000BD4DCB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5DBB5C81B566A14000B0D58 /* EventKit.framework */,
 				A5F7BCED1B4E853C003AF07E /* AVFoundation.framework */,
 				4AE61BF7970AEF7E9CC9C663 /* libPods-Fitness.a */,
 			);

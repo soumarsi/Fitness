@@ -29,6 +29,11 @@
     NSString *check_booking,*booking_pt_id,*booking_date_value;
     
     NSString *booking_id;
+    
+    NSString *savedEventId;
+    
+    NSMutableArray *arrayofCalIDs;
+    
 }
 @property (strong, nonatomic) IBOutlet UIView *footerbase;
 

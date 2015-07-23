@@ -14,6 +14,8 @@
 #import "UIImageView+WebCache.h"
 #import "PTappodetailsViewController.h"
 #import "PTappodetailsViewController.h"
+#import <EventKit/EventKit.h>
+
 @interface appoViewController ()<footerdelegate,UITableViewDelegate,UITableViewDataSource,CKCalendarDelegate>
 @property(nonatomic, weak) CKCalendarView *calendar;
 @property(nonatomic, strong) UILabel *dateLabel;
@@ -91,7 +93,53 @@
              appo_array=[[NSMutableArray alloc]init];
              appo_array=[[JsonResult objectForKey:@"appointment_date"]mutableCopy];
              
-            // NSLog(@"Calendar_Data....%@",appo_array);
+            ////// Accessing ical integration ////
+             
+             
+             for (int c=0; c<appo_array.count; c++)
+             {
+                 
+                 NSString *dateStr =[NSString stringWithFormat:@"%@",[appo_array objectAtIndex:c]];
+                 
+                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                 [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm aa"];
+                 [dateFormat setTimeZone:[NSTimeZone systemTimeZone]];
+                 NSDate *event_date = [dateFormat dateFromString:dateStr];
+                 
+                 NSLog(@"#####>>>>>######....%@",event_date);
+                 
+                 EKEventStore *store = [EKEventStore new];
+                 [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+                     if (!granted) { return; }
+                     EKEvent *event = [EKEvent eventWithEventStore:store];
+                     event.title = @"PT-Planner Appointment";
+                     event.startDate = event_date;
+                     event.endDate = [event_date dateByAddingTimeInterval:60*60];
+                     event.calendar = [store defaultCalendarForNewReminders];
+                     NSError *err = nil;
+                     
+                     [store saveEvent:event span:EKSpanThisEvent error:&err];
+                     NSString* str = [[NSString alloc] initWithFormat:@"%@", event.eventIdentifier];
+                     [arrayofCalIDs addObject:str];
+                     
+                     event = [store eventWithIdentifier:[arrayofCalIDs objectAtIndex:c]];
+                     if (event != nil) {
+                         NSError* error = nil;
+                         [store removeEvent:event span:EKSpanThisEvent error:&error];
+                     }
+                     
+                    [store saveEvent:event span:EKSpanThisEvent error:&err];
+                     
+                     [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+                    
+                     
+                     savedEventId = event.eventIdentifier;
+                     
+                 }];
+
+             }
+
+            
              
              
              
@@ -160,7 +208,7 @@
                   
     
     _trainner_name.text=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:0]objectForKey:@"pt_name"]];
-                  
+    
     _trainner_address.text=[NSString stringWithFormat:@"%@",[[trainner_array objectAtIndex:0]objectForKey:@"working_address"]];
                   
                   
@@ -213,6 +261,58 @@
     PT=1;
 
     
+    
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    
+    ////// Accessing ical integration ////
+    
+    
+//    for (int c=0; c<appo_array.count; c++)
+//    {
+//        
+//        NSString *dateStr =[NSString stringWithFormat:@"%@",[appo_array objectAtIndex:c]];
+//        
+//        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm aa"];
+//        [dateFormat setTimeZone:[NSTimeZone systemTimeZone]];
+//        NSDate *event_date = [dateFormat dateFromString:dateStr];
+//        
+//        NSLog(@"#####>>>>>######....%@",event_date);
+//        
+//        EKEventStore *store = [EKEventStore new];
+//        [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+//            if (!granted) { return; }
+//            EKEvent *event = [EKEvent eventWithEventStore:store];
+//            event.title = @"PT-Planner Appointment";
+//            event.startDate = event_date;
+//            event.endDate = [event_date dateByAddingTimeInterval:60*60];
+//            event.calendar = [store defaultCalendarForNewReminders];
+//            NSError *err = nil;
+//            
+//            [store saveEvent:event span:EKSpanThisEvent error:&err];
+////            NSString* str = [[NSString alloc] initWithFormat:@"%@", event.eventIdentifier];
+////            [arrayofCalIDs addObject:str];
+////            
+////            event = [store eventWithIdentifier:[arrayofCalIDs objectAtIndex:c]];
+////            if (event != nil) {
+////                NSError* error = nil;
+////                [store removeEvent:event span:EKSpanThisEvent error:&error];
+////            }
+//            
+//            [store saveEvent:event span:EKSpanThisEvent error:&err];
+//            
+//            [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+//            
+//            
+//            savedEventId = event.eventIdentifier;
+//            
+//        }];
+//        
+//    }
+
 }
 
 -(void)pushmethod:(UIButton *)sender
@@ -485,11 +585,15 @@
             {
                 
                 dateItem.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"appo_marker2"]];
+                
+                
             }
             else if ([marking_Date isEqualToString:Current_date])
             {
                 dateItem.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:.4];
                 dateItem.textColor = [UIColor whiteColor];
+                
+            
             }
 
             else
@@ -1044,7 +1148,6 @@
 {
      NSLog(@"######...%d",PT);
    
-    
    
     if (PT==trainner_array.count)
     {

@@ -16,6 +16,7 @@
 #import "GymTableViewCell.h"
 #import "JsonViewController.h"
 #import "UIImageView+WebCache.h"
+#import <AVFoundation/AVFoundation.h>
 @interface StartProgressViewController ()<footerdelegate,UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate>
 {
     NSInteger flag;
@@ -35,6 +36,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Creating a Audio Session
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+    [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    
+    //
     
     _Gymtable.delegate=self;
     _Gymtable.dataSource=self;
@@ -129,7 +137,6 @@
                   [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
                  
                  [_finish_btn setUserInteractionEnabled:YES];
-                 
                  
              }
              
@@ -296,7 +303,7 @@
                                                              forIndexPath:indexPath];
     
     
-  //  NSLog(@"--====-=-===--=-= %ld",Windex);
+    cell.item1.text=[NSString stringWithFormat:@"Set %ld",(long)indexPath.row+1];
     
     if (indexPath.row== Windex)
     {
@@ -365,14 +372,14 @@
         
         cell.selectionStyle=NO;
     }
-
+    
     
     return cell;
 }
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 //{
- //   NSLog(@"########>>>>>>>>>> %@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"reps"]);
-    
+//    NSLog(@"########>>>>>>>>>> %@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"reps"]);
+//    
 //}
 
 - (void)didReceiveMemoryWarning {
@@ -492,8 +499,10 @@
              
              index_number=index_number-1;
              
+             [self.navigationController popViewControllerAnimated:YES];
+             
          }
-         else
+        else
          {
              
              
@@ -685,6 +694,25 @@
              rips_array=[[NSMutableArray alloc]init];
              rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
              
+             Rips=nil;
+             
+             for (int w=0; w<rips_array.count; w++)
+             {
+                 if (Rips.length==0)
+                 {
+                     Rips=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:w]objectForKey:@"reps"]];
+                     
+                 }
+                 else
+                 {
+                     Rips=[NSString stringWithFormat:@"%@,%@",Rips,[[rips_array objectAtIndex:w]objectForKey:@"reps"]];
+                     
+                 }
+                 
+                 
+             }
+
+             
              training_data=[[NSMutableArray alloc]init];
              training_data=[JsonResult mutableCopy];
              
@@ -855,6 +883,25 @@
              rips_array=[[NSMutableArray alloc]init];
              rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
              
+             Rips=nil;
+             
+             for (int w=0; w<rips_array.count; w++)
+             {
+                 if (Rips.length==0)
+                 {
+                     Rips=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:w]objectForKey:@"reps"]];
+                     
+                 }
+                 else
+                 {
+                     Rips=[NSString stringWithFormat:@"%@,%@",Rips,[[rips_array objectAtIndex:w]objectForKey:@"reps"]];
+                     
+                 }
+                 
+                 
+             }
+
+             
              training_data=[[NSMutableArray alloc]init];
              training_data=[JsonResult mutableCopy];
              
@@ -906,6 +953,8 @@
     {
         NSLog(@"---- %ld", (long)sender.tag);
         
+    
+        
         Windex=sender.tag;
         
         [_Gymtable reloadData];
@@ -945,21 +994,15 @@
          {
              keyboard_status=0;
              
-              NSLog(@"getting updated sets %lu",(unsigned long)NewString.length);
+              NSLog(@"getting updated Rips >> %@",Rips);
              
-             if (NewString.length>0)
+             if (Rips.length>0 && NewString.length>0)
              {
-                
-                 
                 
                  [weight_array removeObjectAtIndex:sender.tag];
                  [weight_array insertObject:NewString atIndex:Windex];
                  NSString *Weight = [weight_array componentsJoinedByString:@","];
                  
-                 
-                 NSLog(@"Rips---- %@", Rips);
-                 
-                 NSLog(@"Weight- %@", [[Get_Training_Details objectAtIndex:sender.tag]objectForKey:@"user_program_id"]);
                  
                  JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
                  
@@ -969,573 +1012,138 @@
                       
                       NSLog(@"Getting edit response...%@",JsonResult);
                       
-                     // Rips=nil;
-                      
-                      
-                      
-                      /////// ------ ///////
-                      
-                      if ([_right_arrow isHidden])
-                      {
-
-                          NSLog(@"############ _right button >>");
-                          
-                          Windex = -1;
-                          
-                          [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
-                              
-                              [_custom_keyboard setHidden:NO];
-                              
-                              [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
-                              
-                              [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
-                              
-                          }
-                                           completion:^(BOOL finished)
-                           {
-                               keyboard_status=0;
-                               
-                           }];
-                          
-                          
-                          NSLog(@"...........%d",index_number);
-                          
-                          index_number=index_number-1;
-                          j=j-1;
-                          
-                          [_left_arrow setHidden:NO];
-                          
-                          _Right_arrow_button.userInteractionEnabled=YES;
-                          [_right_arrow setHidden:NO];
-                          
-                          if (index_number<0)
-                          {
-                              
-                              //        _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
-                              
-                              [_left_arrow setHidden:YES];
-                              
-                              [_right_arrow setHidden:NO];
-                              _Right_arrow_button.userInteractionEnabled=YES;
-                              
-                              _left_arrow_button.userInteractionEnabled=NO;
-                              
-                              
-                          }
-                          else
-                          {
-                              JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-                              
-                              
-                              [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
-                               
-                               {
-                                   
-                                   if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
-                                   {
-                                       [_finish_btn setImage:nil forState:UIControlStateNormal];
-                                       
-                                       [_finish_btn setBackgroundColor:[UIColor grayColor]];
-                                       [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
-                                       [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                                       _finish_btn.layer.cornerRadius=3;
-                                       
-                                       [_finish_btn setUserInteractionEnabled:NO];
-                                       
-                                   }
-                                   else
-                                   {
-                                       [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
-                                       
-                                        [_finish_btn setUserInteractionEnabled:YES];
-                                       
-                                       
-                                   }
-                                   
-                                   
-                                   
-                                   NSLog(@"###### Test Mode ###### ... %@",JsonResult);
-                                   
-                                   rips_array=[[NSMutableArray alloc]init];
-                                   rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
-                                   
-                                   training_data=[[NSMutableArray alloc]init];
-                                   training_data=[JsonResult mutableCopy];
-                                   
-                                   _training_description.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_description"]];
-                                   _training_description.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                                   
-                                   _Training_instruction.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"instruction"]];
-                                   _Training_instruction.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                                   
-                                   
-                                   [_training_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
-                                   
-                                   websiteUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_video"]]];
-                                   NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
-                                   [myWebView loadRequest:urlRequest];
-                                   
-                                   _training_image.clipsToBounds=YES;
-                                   _training_image.contentMode=UIViewContentModeScaleAspectFit;
-                                   
-                                   [_Gymtable reloadData];
-                                   
-                               }];
-                              
-                              if(index_number>0)
-                              {
-                                  _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number+j]objectForKey:@"exercise_title"]];
-                              }
-                              
-                              _Training_NameHead.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
-                              
-                              _Training_Name2.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number-j]objectForKey:@"exercise_title"]];
-                              
-                              if(index_number==0)
-                              {
-                                  _Training_Name.text=Nil;
-                                  [_left_arrow setHidden:YES];
-                                  _left_arrow_button.userInteractionEnabled=NO;
-                              }
-                              
-                          }
-                          j=j+1;
-                          //index_number=0;
-
-                      
-                          Windex = -1;
-                          
-                          [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
-                              
-                              [_custom_keyboard setHidden:NO];
-                              
-                              [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
-                              
-                              [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
-                              
-                          }
-                                           completion:^(BOOL finished)
-                           {
-                               keyboard_status=0;
-                               
-                           }];
-                          
-                          
-                          NSLog(@"...........%d",index_number);
-                          
-                          index_number=index_number+1;
-                          i=i+1;
-                          
-                          [_left_arrow setHidden:NO];
-                          
-                          _left_arrow_button.userInteractionEnabled=YES;
-                          
-                          
-                          if (Get_Training_Details.count==index_number)
-                          {
-                              
-                              
-                              [_right_arrow setHidden:YES];
-                              
-                              _Right_arrow_button.userInteractionEnabled=NO;
-                              
-                              _left_arrow_button.userInteractionEnabled=YES;
-                              
-                              index_number=index_number-1;
-                              
-                          }
-                          else
-                          {
-                              
-                              
-                              JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-                              
-                              
-                              [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
-                               
-                               {
-                                   
-                                   if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
-                                   {
-                                       [_finish_btn setImage:nil forState:UIControlStateNormal];
-                                       
-                                       [_finish_btn setBackgroundColor:[UIColor grayColor]];
-                                       [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
-                                       [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                                       _finish_btn.layer.cornerRadius=3;
-                                       
-                                       [_finish_btn setUserInteractionEnabled:NO];
-                                       
-                                   }
-                                   else
-                                   {
-                                       [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
-                                       
-                                        [_finish_btn setUserInteractionEnabled:YES];
-                                       
-                                   }
-                                   
-                                   
-                                   
-                                   NSLog(@"###### Test Mode ###### ... %@",JsonResult);
-                                   
-                                   rips_array=[[NSMutableArray alloc]init];
-                                   rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
-                                   
-                                   training_data=[[NSMutableArray alloc]init];
-                                   training_data=[JsonResult mutableCopy];
-                                   
-                                   _training_description.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_description"]];
-                                   _training_description.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                                   
-                                   _Training_instruction.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"instruction"]];
-                                   _Training_instruction.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                                   
-                                   
-                                   [_training_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
-                                   
-                                   websiteUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_video"]]];
-                                   NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
-                                   [myWebView loadRequest:urlRequest];
-                                   
-                                   _training_image.clipsToBounds=YES;
-                                   _training_image.contentMode=UIViewContentModeScaleAspectFit;
-                                   
-                                   [_Gymtable reloadData];
-                                   
-                                   
-                               }];
-                              
-                              
-                              
-                              
-                              
-                              if(index_number-i>=0)
-                              {
-                                  _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number-i]objectForKey:@"exercise_title"]];
-                                  
-                              }
-                              
-                              
-                              _Training_NameHead.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
-                              
-                              if(i<Get_Training_Details.count-index_number)
-                              {
-                                  _Training_Name2.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number+i]objectForKey:@"exercise_title"]];
-                              }
-                              if(index_number==Get_Training_Details.count-1)
-                              {
-                                  _Training_Name2.text=Nil;
-                                  [_right_arrow setHidden:YES];
-                                  _Right_arrow_button.userInteractionEnabled=NO;
-                                  
-                              }
-                              
-                              if ([_Training_Name2.text isEqualToString:@""])
-                              {
-                                  
-                                  
-                                  [_right_arrow setHidden:YES];
-                                  
-                                  _Right_arrow_button.userInteractionEnabled=NO;
-                                  
-                                  _left_arrow_button.userInteractionEnabled=YES;
-                                  
-                                  index_number=index_number-1;
-                                  
-                              }
-                              
-                              
-                          }
-                          
-                          
-                          i=i-1;
-
-            
-                          
-
-                      }
-                      else
-                      {
-                      
-                      Windex = -1;
-                      
-                      [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
-                          
-                          [_custom_keyboard setHidden:NO];
-                          
-                          [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
-                          
-                          [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
-                          
-                      }
-                                       completion:^(BOOL finished)
+          
+                      [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[JsonResult objectForKey:@"user_program_id"],loggedin_userID,[JsonResult objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+                       
                        {
-                           keyboard_status=0;
                            
-                       }];
-                      
-                      
-                      NSLog(@"...........%d",index_number);
-                      
-                      index_number=index_number+1;
-                      i=i+1;
-                      
-                      [_left_arrow setHidden:NO];
-                      
-                      _left_arrow_button.userInteractionEnabled=YES;
-                      
-                      
-                      if (Get_Training_Details.count==index_number)
-                      {
-                          
-                          
-                          [_right_arrow setHidden:YES];
-                          
-                          _Right_arrow_button.userInteractionEnabled=NO;
-                          
-                          _left_arrow_button.userInteractionEnabled=YES;
-                          
-                          index_number=index_number-1;
-                          
-                      }
-                      else
-                      {
-                          
-                          
-                          JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-                          
-                          
-                          [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                        
                            
+                           if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
                            {
+                               [_finish_btn setImage:nil forState:UIControlStateNormal];
                                
-                               if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
+                               [_finish_btn setBackgroundColor:[UIColor grayColor]];
+                               [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
+                               [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                               _finish_btn.layer.cornerRadius=3;
+                               
+                               [_finish_btn setUserInteractionEnabled:NO];
+                               
+                           }
+                           else
+                           {
+                               [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
+                               
+                               [_finish_btn setUserInteractionEnabled:YES];
+                               
+                               
+                           }
+                           
+                           
+                           
+                           NSLog(@"###### Test Mode ###### ... %@",JsonResult);
+                           
+                           rips_array=[[NSMutableArray alloc]init];
+                           rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
+                           
+                           Rips=nil;
+                           
+                           for (int w=0; w<rips_array.count; w++)
+                           {
+                               if (Rips.length==0)
                                {
-                                   [_finish_btn setImage:nil forState:UIControlStateNormal];
-                                   
-                                   [_finish_btn setBackgroundColor:[UIColor grayColor]];
-                                   [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
-                                   [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                                   _finish_btn.layer.cornerRadius=3;
-                                   
-                                   [_finish_btn setUserInteractionEnabled:NO];
+                                   Rips=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:w]objectForKey:@"reps"]];
                                    
                                }
                                else
                                {
-                                   [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
-                                   
-                                    [_finish_btn setUserInteractionEnabled:YES];
+                                   Rips=[NSString stringWithFormat:@"%@,%@",Rips,[[rips_array objectAtIndex:w]objectForKey:@"reps"]];
                                    
                                }
+                             
                                
+                           }
+
+                           
+                           training_data=[[NSMutableArray alloc]init];
+                           training_data=[JsonResult mutableCopy];
+                           
+                           _training_description.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_description"]];
+                           _training_description.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
+                           
+                           _Training_instruction.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"instruction"]];
+                           _Training_instruction.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
+                           
+                           
+                           [_training_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
+                           
+                           websiteUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_video"]]];
+                           NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
+                           [myWebView loadRequest:urlRequest];
+                           
+                           _training_image.clipsToBounds=YES;
+                           _training_image.contentMode=UIViewContentModeScaleAspectFit;
+                           
+                           Windex=-1;
+                           
+                           [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
                                
+                               [_custom_keyboard setHidden:NO];
                                
-                               NSLog(@"###### Test Mode ###### ... %@",JsonResult);
+                               [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
                                
-                               rips_array=[[NSMutableArray alloc]init];
-                               rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
-                               
-                               training_data=[[NSMutableArray alloc]init];
-                               training_data=[JsonResult mutableCopy];
-                               
-                               _training_description.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_description"]];
-                               _training_description.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                               
-                               _Training_instruction.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"instruction"]];
-                               _Training_instruction.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                               
-                               
-                          //     [_training_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
-                               
-                        //       websiteUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_video"]]];
-                               NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
-                               [myWebView loadRequest:urlRequest];
-                               
-                               _training_image.clipsToBounds=YES;
-                               _training_image.contentMode=UIViewContentModeScaleAspectFit;
+                               [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
                                
                                [_Gymtable reloadData];
                                
                                
-                           }];
-                          
-                          
-                          
-                          
-                          
-                          if(index_number-i>=0)
-                          {
-                              _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number-i]objectForKey:@"exercise_title"]];
-                              
-                          }
-                          
-                          
-                          _Training_NameHead.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
-                          
-                          if(i<Get_Training_Details.count-index_number)
-                          {
-                              _Training_Name2.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number+i]objectForKey:@"exercise_title"]];
-                          }
-                          if(index_number==Get_Training_Details.count-1)
-                          {
-                              _Training_Name2.text=Nil;
-                              [_right_arrow setHidden:YES];
-                              _Right_arrow_button.userInteractionEnabled=NO;
-                              
-                          }
-                          
-                          if ([_Training_Name2.text isEqualToString:@""])
-                          {
-                              
-                              
-                              [_right_arrow setHidden:YES];
-                              
-                              _Right_arrow_button.userInteractionEnabled=NO;
-                              
-                              _left_arrow_button.userInteractionEnabled=YES;
-                              
-                              index_number=index_number-1;
-                              
-                          }
-                          
-                          
-                      }
-                      
-                      
-                      i=i-1;
+                           }
+                                            completion:^(BOOL finished)
+                            {
+                                
+                                
+                            }];
+                               
+                                  });
 
-                      
-                      
-                      
-                      Windex = -1;
-                      
-                      [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
-                          
-                          [_custom_keyboard setHidden:NO];
-                          
-                          [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
-                          
-                          [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
-                          
-                      }
-                                       completion:^(BOOL finished)
-                       {
-                           keyboard_status=0;
                            
                        }];
-                      
-                      
-                      NSLog(@"...........%d",index_number);
-                      
-                      index_number=index_number-1;
-                      j=j-1;
-                      
-                      [_left_arrow setHidden:NO];
-                      
-                      _Right_arrow_button.userInteractionEnabled=YES;
-                      [_right_arrow setHidden:NO];
-                      
-                      if (index_number<0)
-                      {
-                          
-                          //        _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
-                          
-                          [_left_arrow setHidden:YES];
-                          
-                          [_right_arrow setHidden:NO];
-                          _Right_arrow_button.userInteractionEnabled=YES;
-                          
-                          _left_arrow_button.userInteractionEnabled=NO;
-                          
-                          
-                      }
-                      else
-                      {
-                          JsonViewController *jsonOBJ=[[JsonViewController alloc]init];
-                          
-                          
-                          [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/get_particular_exercise_details?user_program_id=%@&client_id=%@&exercise_id=%@",App_Domain_Url,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"user_program_id"],loggedin_userID,[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_id"]] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
-                           
-                           {
-                               
-                               if ([[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"finished"]]isEqualToString:@"TRUE"])
-                               {
-                                   [_finish_btn setImage:nil forState:UIControlStateNormal];
-                                   
-                                   [_finish_btn setBackgroundColor:[UIColor grayColor]];
-                                   [_finish_btn setTitle:@"Finished" forState:UIControlStateNormal];
-                                   [_finish_btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                                   _finish_btn.layer.cornerRadius=3;
-                                   
-                                   [_finish_btn setUserInteractionEnabled:NO];
-                                   
-                               }
-                               else
-                               {
-                                   [_finish_btn setImage:[UIImage imageNamed:@"finishBTN"] forState:UIControlStateNormal];
-                                   
-                                    [_finish_btn setUserInteractionEnabled:YES];
-                                   
-                                   
-                               }
-                               
-                               
-                               
-                               NSLog(@"###### Test Mode ###### ... %@",JsonResult);
-                               
-                               rips_array=[[NSMutableArray alloc]init];
-                               rips_array=[[JsonResult objectForKey:@"exercise_sets"]mutableCopy];
-                               
-                               training_data=[[NSMutableArray alloc]init];
-                               training_data=[JsonResult mutableCopy];
-                               
-                               _training_description.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_description"]];
-                               _training_description.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                               
-                               _Training_instruction.text=[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"instruction"]];
-                               _Training_instruction.font=[UIFont fontWithName:@"TitilliumWeb-Regular" size:15.0f];
-                               
-                               
-                             //  [_training_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_image"]]] placeholderImage:[UIImage imageNamed:@""] options:/* DISABLES CODE */ (0) == 0?SDWebImageRefreshCached : 0];
-                               
-                            //   websiteUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",[JsonResult objectForKey:@"exercise_video"]]];
-                           //    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:websiteUrl];
-                         //      [myWebView loadRequest:urlRequest];
-                               
-                               _training_image.clipsToBounds=YES;
-                               _training_image.contentMode=UIViewContentModeScaleAspectFit;
-                               
-                               [_Gymtable reloadData];
-                               
-                           }];
-                          
-                          if(index_number>0)
-                          {
-                              _Training_Name.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number+j]objectForKey:@"exercise_title"]];
-                          }
-                          
-                          _Training_NameHead.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number]objectForKey:@"exercise_title"]];
-                          
-                          _Training_Name2.text=[NSString stringWithFormat:@"%@",[[Get_Training_Details objectAtIndex:index_number-j]objectForKey:@"exercise_title"]];
-                          
-                          if(index_number==0)
-                          {
-                              _Training_Name.text=Nil;
-                              [_left_arrow setHidden:YES];
-                              _left_arrow_button.userInteractionEnabled=NO;
-                          }
-                          
-                      }
-                      j=j+1;
-                      //index_number=0;
 
-                      }
+                      
+                 
+     
+                  }];
+             }
+             else
+             {
+                 
+//                 UIAlertView *update_alrt=[[UIAlertView alloc]initWithTitle:@"Please Input a Weight" message:@"a updated kg value is required to update the training sets" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                 
+//                 [update_alrt show];
+                 
+                 
+                 Windex=-1;
+                 
+                 [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+                     
+                     [_custom_keyboard setHidden:NO];
+                     
+                     [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
+                     
+                     [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+                     
+                     [_Gymtable reloadData];
+                     
+                     
+                 }
+                                  completion:^(BOOL finished)
+                  {
                       
                       
                   }];
-                 
+
              }
              
 
@@ -1549,21 +1157,8 @@
     }
     
    
-    
-    
-    
-    
-//    UIAlertView *Edit_Alert = [[UIAlertView alloc] initWithTitle:@""
-//                                                    message:@"Please Enter Weight Value"
-//                                                   delegate:self
-//                                          cancelButtonTitle:@"Cancel"
-//                                          otherButtonTitles:@"Set", nil];
-//    Edit_Alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-//    [Edit_Alert show];
-//
-    
-    
-
+    NSIndexPath* ip = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    [_Gymtable scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -1625,6 +1220,7 @@
                          completion:^(BOOL finished)
          {
              
+             keyboard_status=0;
              
              }];
 
