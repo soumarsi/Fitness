@@ -332,7 +332,7 @@
         
         cell.selectionStyle=NO;
         
-        cell.item4.text=@"";
+        cell.item4.text=[NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"kg"]]];
         
         reflectlbl=[[UILabel alloc]initWithFrame:CGRectMake(cell.item4.frame.origin.x,cell.item4.frame.origin.y,cell.item4.frame.size.width, cell.item4.frame.size.height)];
         
@@ -362,6 +362,7 @@
         cell.item4.textColor=[UIColor colorWithRed:(30.0f/255.0f) green:(168.0f/255.0f) blue:(240.0f/255.0f) alpha:1];
         cell.item5.textColor=[UIColor darkGrayColor];
 
+        cell.item4.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"kg"]];
         
         cell.reps_count.text=[NSString stringWithFormat:@"%@",[[rips_array objectAtIndex:indexPath.row]objectForKey:@"reps"]];
         
@@ -797,7 +798,7 @@
     if ([player
          respondsToSelector:@selector(setFullscreen:animated:)])
     {
-        [player.view removeFromSuperview];
+        [player.view removeFromSuperview];                          
     }
 }
 
@@ -953,8 +954,6 @@
     {
         NSLog(@"---- %ld", (long)sender.tag);
         
-    
-        
         Windex=sender.tag;
         
         [_Gymtable reloadData];
@@ -971,6 +970,7 @@
         }
                          completion:^(BOOL finished)
          {
+             
              keyboard_status=1;
              
             
@@ -1196,33 +1196,35 @@
     
     NSString *PhoneTextFieldText = [PhoneNumbertextView text];
     
-    
+
     
     if (UibuttonTag==196)
     {
         
         NewString = @"";
         
-        Windex=-1;
+         [PhoneNumbertextView setText:NewString];
         
-        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
-            
-            [_custom_keyboard setHidden:NO];
-            
-            [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
-            
-            [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
-            
-            [_Gymtable reloadData];
-
-            
-        }
-                         completion:^(BOOL finished)
-         {
-             
-             keyboard_status=0;
-             
-             }];
+//        Windex=-1;
+//        
+//        [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:1.6 options:0 animations:^{
+//            
+//            [_custom_keyboard setHidden:NO];
+//            
+//            [_Gymtable setFrame:CGRectMake(_Gymtable.frame.origin.x,_Gymtable.frame.origin.y,_Gymtable.frame.size.width,168)];
+//            
+//            [_custom_keyboard setFrame:CGRectMake(_custom_keyboard.frame.origin.x,[UIScreen mainScreen].bounds.size.height+_custom_keyboard.frame.size.height,[UIScreen mainScreen].bounds.size.width,_custom_keyboard.frame.size.height)];
+//            
+           [_Gymtable reloadData];
+//
+//            
+//        }
+//                         completion:^(BOOL finished)
+//         {
+//             
+//             keyboard_status=0;
+//             
+//             }];
 
         
     }
@@ -1230,9 +1232,8 @@
      {
         
          
-       if ([PhoneTextFieldText length]<10)
+       if ([PhoneTextFieldText length]<2)
        {
-           
            
             NewString= [PhoneTextFieldText stringByAppendingString:sender.titleLabel.text];
             

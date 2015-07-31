@@ -93,6 +93,8 @@
              appo_array=[[NSMutableArray alloc]init];
              appo_array=[[JsonResult objectForKey:@"appointment_date"]mutableCopy];
              
+         }
+         
             ////// Accessing ical integration ////
              
              
@@ -164,7 +166,7 @@
              [_calendar_base addSubview:calendar];
              
              [_hidebtn bringSubviewToFront:calendar];
-         }
+    //     }
          
          
          
@@ -191,11 +193,17 @@
                   {
                       [_PT_left setImage:[UIImage imageNamed:@"leftarrow2"] forState:UIControlStateNormal];
                       [_PT_right setImage:[UIImage imageNamed:@"rightarrow2"] forState:UIControlStateNormal];
+                      
+                      _PT_left.userInteractionEnabled=YES;
+                      _PT_right.userInteractionEnabled=YES;
                   }
-                  else
+
                   {
                       [_PT_left setImage:[UIImage imageNamed:@"leftarrow3"] forState:UIControlStateNormal];
                       [_PT_right setImage:[UIImage imageNamed:@"rightarrow3"] forState:UIControlStateNormal];
+                      
+                      _PT_left.userInteractionEnabled=NO;
+                      _PT_right.userInteractionEnabled=NO;
                   }
 
                  

@@ -152,6 +152,15 @@
     jsonOBJ=[[JsonViewController alloc]init];
     [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/mark_calender?client_id=%@",App_Domain_Url,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
      {
+         NSMutableArray *check=[[NSMutableArray alloc]init];
+         check=[JsonResult mutableCopy];
+         
+         if (check.count==0)
+         {
+            
+         }
+         else
+         {
          
          prog_dateArray=[[NSMutableArray alloc]init];
          prog_dateArray2=[[NSMutableArray alloc]init];
@@ -175,6 +184,7 @@
 
          }
          
+         }
          
         NSLog(@"###### TEST Mode _D %@",prog_dateArray2);
          

@@ -45,11 +45,22 @@
     [jsonOBJ GetJsonObjectFromURL:[NSString stringWithFormat:@"%@app_control/mark_calender?client_id=%@",App_Domain_Url,loggedin_userID] WithSpinner:nil Withblock:^(id JsonResult, NSError *error)
      {
          
+         NSMutableArray *data_array=[[NSMutableArray alloc]init];
+         data_array=[JsonResult mutableCopy];
+
+         if (data_array.count==0)
+         {
+             
+         }
+         else
+             
+         {
+         
          diary_date_array=[[NSMutableArray alloc]init];
          diary_date_array2=[[NSMutableArray alloc]init];
          diary_date_array=[[JsonResult objectForKey:@"diary_date"]mutableCopy];
          
-         
+         }
     
 
     
